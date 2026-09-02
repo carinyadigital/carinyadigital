@@ -18,6 +18,9 @@ const {
 } = Astro.props;
 
 const pageTitle = title === site.name ? title : `${title} · ${site.name}`;
+
+const gtmId = import.meta.env.PUBLIC_GTM_ID;
+const gtmEnabled = typeof gtmId === 'string' && /^GTM-[A-Z0-9]+$/i.test(gtmId);
 ---
 
 <!doctype html>
@@ -25,6 +28,16 @@ const pageTitle = title === site.name ? title : `${title} · ${site.name}`;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {gtmEnabled && (
+      <script
+        is:inline
+        set:html={`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','${gtmId}');`}
+      />
+    )}
     <meta name="description" content={description} />
     <meta name="theme-color" content="#5C6A4A" />
     <link rel="icon" href="/favicons/favicon.ico" sizes="32x32" />
@@ -38,6 +51,16 @@ const pageTitle = title === site.name ? title : `${title} · ${site.name}`;
     <title>{pageTitle}</title>
   </head>
   <body class="flex min-h-dvh flex-col bg-background font-sans text-foreground">
+    {gtmEnabled && (
+      <noscript>
+        <iframe
+          src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
+          height="0"
+          width="0"
+          style="display:none;visibility:hidden"
+        ></iframe>
+      </noscript>
+    )}
     <Navbar githubHref={githubHref} />
     <Main className="flex-1">
       <slot />
