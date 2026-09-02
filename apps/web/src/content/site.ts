@@ -13,6 +13,40 @@ export const nav = {
   github: { href: site.github, label: 'GitHub →' },
 } as const;
 
+export const home = {
+  announcement: {
+    href: '/resources/financial-planners',
+    text: 'financial planners is available',
+    cta: 'View resource',
+  },
+  features: [
+    {
+      headline: 'Design',
+      description:
+        'We design agents that do the recurring work in the background, on your tools, under your review.',
+    },
+    {
+      headline: 'Build',
+      description:
+        'We package what we build as open, inspectable agent resources: plugins for Claude Code and Claude Cowork, and agent directories you can deploy yourself.',
+    },
+    {
+      headline: 'Run',
+      description: 'Nothing runs unsupervised — every output is a draft for a person to review.',
+    },
+  ],
+  stats: {
+    headline: 'what is already published',
+    description:
+      'Two agent resources, four plugins for Australian advice and credit work, and a hard rule: nothing is sent, lodged, or filed without a person.',
+    items: [
+      { value: '2', label: 'published agent resources' },
+      { value: '4', label: 'plugins covering advice, broking, and compliance' },
+      { value: '0', label: 'outputs sent, lodged, or filed without a human gate' },
+    ],
+  },
+} as const;
+
 export const homeResources = [
   {
     tag: 'Plugin marketplace',
@@ -119,6 +153,20 @@ export const financialPlanners = {
       price: 'TBD',
       description:
         'Managed setup, licensee-wide rollout, priority updates as regulation changes, and support from Carinya Digital. Pricing to be announced.',
+    },
+  ],
+  faqs: [
+    {
+      q: 'Is this personal advice or credit assistance?',
+      a: 'Nothing here provides personal advice or credit assistance, or certifies Best Interests Duty, responsible lending, or TMD fit.',
+    },
+    {
+      q: 'Who authorises what goes out the door?',
+      a: 'You remain the authorising signatory. There is an explicit gate before anything is sent, lodged, or filed.',
+    },
+    {
+      q: 'Are the outputs finished documents?',
+      a: 'Every output is a draft, never a decision. Source tags sit on product facts, rates, and fees. Incomplete-information warnings are called out at the top.',
     },
   ],
 } as const;

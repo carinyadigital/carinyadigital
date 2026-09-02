@@ -1,5 +1,6 @@
 ---
 import {
+  Announcement,
   BorderGrid,
   buttonVariants,
   Card,
@@ -7,31 +8,33 @@ import {
   CardTitle,
   Container,
   Eyebrow,
-  Heading,
+  FeatureGrid,
   InverseSurface,
+  StatBand,
   Subheading,
   Tag,
   Text,
   TextLink,
 } from '@carinya-digital/ui';
+import CallToAction from '@/components/CallToAction.astro';
+import Hero from '@/components/Hero.astro';
 import Layout from '@/layouts/Layout.astro';
-import { homeResources } from '@/content/site';
+import { home, homeResources } from '@/content/site';
 ---
 
 <Layout>
-  <section class="py-16 sm:py-24">
-    <Container className="flex flex-col gap-6">
+  <Hero
+    headline="less admin, more capacity."
+    headlineClassName="max-w-[20ch]"
+    subheadline="Carinya Digital designs, builds, and runs AI agents that handle the recurring work inside small and medium businesses — drafting, filing, checking, chasing — so your team spends its time on the work only a person can do."
+  >
+    <div slot="eyebrow" class="flex flex-col items-start gap-4">
+      <Announcement href={home.announcement.href} cta={home.announcement.cta}>
+        {home.announcement.text}
+      </Announcement>
       <Eyebrow>Proven agent resources · Suitable for any business</Eyebrow>
-      <Heading className="max-w-[20ch]">
-        less admin,<br />more capacity.
-      </Heading>
-      <Text size="lg" className="max-w-[56ch]">
-        Carinya Digital designs, builds, and runs AI agents that handle the recurring work inside
-        small and medium businesses — drafting, filing, checking, chasing — so your team spends its
-        time on the work only a person can do.
-      </Text>
-    </Container>
-  </section>
+    </div>
+  </Hero>
 
   <InverseSurface>
     <Container className="grid items-start gap-12 lg:grid-cols-[1fr_1.4fr] lg:gap-16">
@@ -58,6 +61,18 @@ import { homeResources } from '@/content/site';
 
   <section class="py-24">
     <Container>
+      <FeatureGrid items={[...home.features]} />
+    </Container>
+  </section>
+
+  <StatBand
+    headline={home.stats.headline}
+    description={home.stats.description}
+    items={[...home.stats.items]}
+  />
+
+  <section class="py-24">
+    <Container>
       <div class="mb-16 flex flex-wrap items-baseline justify-between gap-5">
         <Subheading>open, not rented.</Subheading>
         <Text className="max-w-[40ch]">
@@ -81,18 +96,14 @@ import { homeResources } from '@/content/site';
     </Container>
   </section>
 
-  <section class="border-t border-border py-16">
-    <Container className="flex flex-wrap items-end justify-between gap-8">
-      <div class="max-w-[44ch]">
-        <Subheading className="mb-3">follow along</Subheading>
-        <Text>
-          New agent resources go up as they’re built and proven. Watch the repos for updates —
-          nothing to sign up for.
-        </Text>
-      </div>
-      <a class={buttonVariants({ variant: 'primary' })} href="/resources">
-        Browse Agent Resources
-      </a>
-    </Container>
-  </section>
+  <CallToAction
+    align="start"
+    class="border-t border-border py-16"
+    headline="follow along"
+    subheadline="New agent resources go up as they’re built and proven. Watch the repos for updates — nothing to sign up for."
+  >
+    <a class={buttonVariants({ variant: 'primary' })} href="/resources">
+      Browse Agent Resources
+    </a>
+  </CallToAction>
 </Layout>
