@@ -1,0 +1,59 @@
+---
+import {
+  BorderGrid,
+  Card,
+  CardDescription,
+  CardTitle,
+  Container,
+  Eyebrow,
+  Heading,
+  Tag,
+  Text,
+  TextLink,
+} from '@carinya-digital/ui';
+import Layout from '@/layouts/Layout.astro';
+import { resources } from '@/content/site';
+---
+
+<Layout
+  title="Agent Resources"
+  description="Proven agent resources, suitable for any business. Every plugin and agent directory is open source — inspect it, run it yourself, or ask us to run it for you."
+>
+  <section class="py-16 sm:py-24">
+    <Container>
+      <Eyebrow>Agent Resources</Eyebrow>
+      <Heading className="mt-4 max-w-[22ch] text-h1">
+        agents for the recurring work, ready to install
+      </Heading>
+      <Text size="lg" className="mt-5 max-w-[60ch]">
+        Proven agent resources, suitable for any business. Every plugin and agent directory below is
+        open source — inspect it, run it yourself, or ask us to run it for you.
+      </Text>
+    </Container>
+  </section>
+
+  <section class="pb-24">
+    <Container>
+      <BorderGrid className="grid-cols-1 lg:grid-cols-3">
+        {
+          resources.map((resource) => (
+            <Card className="flex flex-col gap-4 rounded-none p-8">
+              <div class="flex items-center justify-between gap-3">
+                <Tag>{resource.tag}</Tag>
+                <Tag tone="dark">{resource.status}</Tag>
+              </div>
+              <CardTitle className="mt-0 text-[26px]">{resource.title}</CardTitle>
+              <CardDescription className="flex-1 leading-body">{resource.description}</CardDescription>
+              <div class="flex flex-wrap items-center gap-5">
+                <TextLink href={resource.href}>View resource →</TextLink>
+                <TextLink variant="muted" href={resource.githubHref}>
+                  GitHub
+                </TextLink>
+              </div>
+            </Card>
+          ))
+        }
+      </BorderGrid>
+    </Container>
+  </section>
+</Layout>

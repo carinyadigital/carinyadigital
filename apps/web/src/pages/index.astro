@@ -1,0 +1,98 @@
+---
+import {
+  BorderGrid,
+  buttonVariants,
+  Card,
+  CardDescription,
+  CardTitle,
+  Container,
+  Eyebrow,
+  Heading,
+  InverseSurface,
+  Subheading,
+  Tag,
+  Text,
+  TextLink,
+} from '@carinya-digital/ui';
+import Layout from '@/layouts/Layout.astro';
+import { homeResources } from '@/content/site';
+---
+
+<Layout>
+  <section class="py-16 sm:py-24">
+    <Container className="flex flex-col gap-6">
+      <Eyebrow>Proven agent resources · Suitable for any business</Eyebrow>
+      <Heading className="max-w-[20ch]">
+        less admin,<br />more capacity.
+      </Heading>
+      <Text size="lg" className="max-w-[56ch]">
+        Carinya Digital designs, builds, and runs AI agents that handle the recurring work inside
+        small and medium businesses — drafting, filing, checking, chasing — so your team spends its
+        time on the work only a person can do.
+      </Text>
+    </Container>
+  </section>
+
+  <InverseSurface>
+    <Container className="grid items-start gap-12 lg:grid-cols-[1fr_1.4fr] lg:gap-16">
+      <div>
+        <Eyebrow tone="sage">What we build</Eyebrow>
+        <Subheading className="mt-4">
+          agents that do<br />the recurring work
+        </Subheading>
+      </div>
+      <div class="flex flex-col gap-5">
+        <p class="font-heading text-[22px] leading-snug italic text-foreground">
+          “Every business has a stack of work that comes back every week — file notes, meeting prep,
+          compliance drafts, follow-ups. We design agents that do that work in the background, on
+          your tools, under your review.”
+        </p>
+        <Text className="max-w-[60ch]">
+          We package what we build as open, inspectable agent resources: plugins for Claude Code and
+          Claude Cowork, and agent directories you can deploy yourself. Nothing runs unsupervised —
+          every output is a draft for a person to review.
+        </Text>
+      </div>
+    </Container>
+  </InverseSurface>
+
+  <section class="py-24">
+    <Container>
+      <div class="mb-16 flex flex-wrap items-baseline justify-between gap-5">
+        <Subheading>open, not rented.</Subheading>
+        <Text className="max-w-[40ch]">
+          Every agent resource is free to inspect, fork, and run yourself — no black box, no lock-in.
+        </Text>
+      </div>
+      <BorderGrid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          homeResources.map((resource) => (
+            <Card className="flex flex-col gap-3.5 rounded-none">
+              <Tag>{resource.tag}</Tag>
+              <CardTitle>{resource.title}</CardTitle>
+              <CardDescription className="flex-1">{resource.description}</CardDescription>
+              <TextLink href={resource.href}>
+                {resource.linkLabel} →
+              </TextLink>
+            </Card>
+          ))
+        }
+      </BorderGrid>
+    </Container>
+  </section>
+
+  <section class="border-t border-border py-16">
+    <Container className="flex flex-wrap items-end justify-between gap-8">
+      <div class="max-w-[44ch]">
+        <Subheading className="mb-3">follow along</Subheading>
+        <Text>
+          New agent resources go up as they’re built and proven. Watch the repos for updates —
+          nothing to sign up for.
+        </Text>
+      </div>
+      <a class={buttonVariants({ variant: 'primary' })} href="/resources">
+        Browse Agent Resources
+      </a>
+    </Container>
+  </section>
+</Layout>

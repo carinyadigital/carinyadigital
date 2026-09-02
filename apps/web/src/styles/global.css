@@ -1,0 +1,33 @@
+@import '@fontsource/spectral/400.css';
+@import '@fontsource/spectral/400-italic.css';
+@import '@fontsource/spectral/600.css';
+@import '@fontsource/ibm-plex-sans/400.css';
+@import '@fontsource/ibm-plex-sans/500.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+@import '@carinya-digital/theme';
+
+@source '../../../../packages/ui/src/**/*.{ts,tsx}';
+@source '../../src/**/*.{astro,ts,tsx}';
+
+:root {
+  --font-spectral: 'Spectral', Georgia, serif;
+  --font-ibm-plex-sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-ibm-plex-mono: 'IBM Plex Mono', ui-monospace, monospace;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+  }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+  }
+}

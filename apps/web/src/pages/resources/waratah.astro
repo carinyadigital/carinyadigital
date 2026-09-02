@@ -1,0 +1,170 @@
+---
+import {
+  BorderGrid,
+  buttonVariants,
+  CallToAction,
+  Card,
+  Container,
+  FaqItem,
+  FaqList,
+  ImageSlot,
+  StatBand,
+  Subheading,
+  Tag,
+  Text,
+  TextLink,
+} from '@carinya-digital/ui';
+import FeatureSplit from '@/components/FeatureSplit.astro';
+import Layout from '@/layouts/Layout.astro';
+import { waratah } from '@/content/site';
+---
+
+<Layout
+  title="Waratah"
+  description="waratah is a portable agent definition, built to any provider. Define identity, instructions, connectors, and schedules once — deploy the same agent to Claude and beyond."
+  githubHref={waratah.github}
+>
+  <section class="dark bg-background py-16 text-foreground sm:py-24">
+    <Container className="grid items-center gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
+      <div class="flex flex-col gap-5">
+        <Tag className="w-fit bg-charcoal text-sage">Agent framework</Tag>
+        <h1 class="font-heading text-display font-normal tracking-tight text-foreground">
+          agents that run themselves
+        </h1>
+        <Text size="lg" className="max-w-[48ch]">
+          waratah is a portable agent definition, built to any provider. Define identity,
+          instructions, connectors, and schedules once — deploy the same agent to Claude and beyond.
+        </Text>
+        <div class="mt-2 flex flex-wrap gap-4">
+          <a class={buttonVariants({ variant: 'primary' })} href={waratah.github}>
+            View on GitHub
+          </a>
+          <a class={buttonVariants({ variant: 'secondary' })} href={waratah.docs}>
+            Read the docs →
+          </a>
+        </div>
+      </div>
+      <ImageSlot label="Product screenshot or diagram" className="h-[380px] w-full" />
+    </Container>
+  </section>
+
+  <StatBand items={[...waratah.stats]} />
+
+  <FeatureSplit eyebrow="The model" headline="an agent is a directory">
+    <ImageSlot slot="media" label="Directory-structure diagram" className="h-[340px] w-full" />
+    <Text>
+      The agent directory is authoritative. Conventional subdirectories —{' '}
+      <code class="font-mono text-small text-primary">connectors/</code>,{' '}
+      <code class="font-mono text-small text-primary">schedules/</code>,{' '}
+      <code class="font-mono text-small text-primary">skills/</code>,{' '}
+      <code class="font-mono text-small text-primary">subagents/</code> — are discovered
+      automatically. Render it into provider-specific artifacts you can review before they ship.
+    </Text>
+  </FeatureSplit>
+
+  <FeatureSplit headline="designed for coordinated agents" mediaPosition="end" tone="card">
+    <ImageSlot slot="media" label="Multi-agent roster diagram" className="h-[340px] w-full" />
+    <Text className="mb-5">
+      A coordinator names a version-pinned roster; every entry needs a matching directory under{' '}
+      <code class="font-mono text-small">subagents/</code> — checked in both directions.
+    </Text>
+    <div class="flex flex-col gap-3.5">
+      {
+        waratah.coordination.map((item) => (
+          <p class="text-small leading-body text-muted-foreground">
+            <strong class="font-medium text-foreground">{item.title}</strong> — {item.desc}
+          </p>
+        ))
+      }
+    </div>
+  </FeatureSplit>
+
+  <section class="py-24">
+    <Container>
+      <Subheading className="max-w-[24ch]">provider neutral, fully configurable</Subheading>
+      <Text className="mt-4 mb-12 max-w-[60ch]">
+        <code class="font-mono text-small text-primary">model</code> is a tier, not a vendor id. Each
+        provider resolves it and records what shipped — a provider that can’t support what an agent
+        needs fails the build loudly, never with a silent, degraded artifact.
+      </Text>
+      <BorderGrid className="grid-cols-1 md:grid-cols-2">
+        {
+          waratah.providers.map((provider) => (
+            <Card className="flex flex-col gap-3 rounded-none p-6">
+              <ImageSlot label="Logo" className="size-11" />
+              <div class="flex items-center justify-between gap-3">
+                <p class="font-mono text-body text-foreground">{provider.name}</p>
+                <Tag>{provider.status}</Tag>
+              </div>
+              <p class="text-small leading-[1.55] text-muted-foreground">{provider.desc}</p>
+            </Card>
+          ))
+        }
+      </BorderGrid>
+    </Container>
+  </section>
+
+  <section class="dark bg-background py-24 text-foreground">
+    <Container className="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
+      <div>
+        <p class="font-mono text-label font-medium uppercase tracking-label text-accent-tint">
+          Authoring
+        </p>
+        <Subheading className="mt-4">configure with markdown</Subheading>
+        <Text className="mt-4 max-w-[44ch]">
+          Identity and behaviour are plain markdown, not a DSL. A{' '}
+          <code class="font-mono text-small text-accent-tint">skills/</code> file is a playbook the
+          agent reads when it’s relevant. Everything else is typed YAML.
+        </Text>
+      </div>
+      <div class="flex flex-col gap-px bg-border">
+        <div class="bg-charcoal p-[22px]">
+          <p class="mb-2.5 font-mono text-small text-accent-tint">instructions.md</p>
+          <pre class="m-0 font-mono text-small leading-[1.7] text-inverse whitespace-pre-wrap">
+{`# Identity
+You are the file-aging watcher.
+Flag files past the review threshold
+and draft a reminder — never send it.`}
+          </pre>
+        </div>
+        <div class="bg-charcoal p-[22px]">
+          <p class="mb-2.5 font-mono text-small text-accent-tint">skills/escalate.md</p>
+          <pre class="m-0 font-mono text-small leading-[1.7] text-inverse whitespace-pre-wrap">
+{`---
+description: When a file is overdue
+---
+Draft the reminder, tag the reviewer,
+and stop. Do not send without a human.`}
+          </pre>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <CallToAction
+    headline="deploy your first agent today"
+    subheadline="Clone the repo, define your agent, and dry-run the deploy — no credentials required to see what would happen."
+  >
+    <a class={buttonVariants({ variant: 'primary' })} href={waratah.github}>
+      Get started on GitHub
+    </a>
+  </CallToAction>
+
+  <section class="border-t border-border py-24">
+    <Container>
+      <FaqList>
+        {
+          waratah.faqs.map((faq) => (
+            <FaqItem question={faq.q}>{faq.a}</FaqItem>
+          ))
+        }
+      </FaqList>
+    </Container>
+  </section>
+
+  <section class="border-t border-border py-8">
+    <Container>
+      <TextLink variant="body" href="/resources">← All agent resources</TextLink>
+    </Container>
+  </section>
+</Layout>

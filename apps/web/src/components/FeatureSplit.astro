@@ -1,0 +1,42 @@
+---
+import { Container, Eyebrow, Subheading } from '@carinya-digital/ui';
+
+interface Props {
+  eyebrow?: string;
+  headline: string;
+  mediaPosition?: 'start' | 'end';
+  tone?: 'default' | 'card' | 'inverse';
+}
+
+const { eyebrow, headline, mediaPosition = 'start', tone = 'default' } = Astro.props;
+
+const containerClass = [
+  'grid items-center gap-12 lg:grid-cols-2 lg:gap-16',
+  mediaPosition === 'end' ? 'lg:[&>:first-child]:order-2' : '',
+]
+  .filter(Boolean)
+  .join(' ');
+---
+
+<section
+  class:list={[
+    'py-24',
+    tone === 'card' && 'bg-card',
+    tone === 'inverse' && 'dark bg-background text-foreground',
+  ]}
+>
+  <Container className={containerClass}>
+    <div>
+      <slot name="media" />
+    </div>
+    <div>
+      {eyebrow ? (
+        <Eyebrow tone={tone === 'inverse' ? 'sage' : 'clay'}>{eyebrow}</Eyebrow>
+      ) : null}
+      <Subheading className={eyebrow ? 'mt-4' : undefined}>{headline}</Subheading>
+      <div class="mt-4 max-w-[46ch]">
+        <slot />
+      </div>
+    </div>
+  </Container>
+</section>

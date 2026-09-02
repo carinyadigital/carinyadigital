@@ -1,0 +1,41 @@
+---
+import { Main } from '@carinya-digital/ui';
+import Footer from '@/components/Footer.astro';
+import Navbar from '@/components/Navbar.astro';
+import { site } from '@/content/site';
+import '@/styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  githubHref?: string;
+}
+
+const {
+  title = site.name,
+  description = site.description,
+  githubHref,
+} = Astro.props;
+
+const pageTitle = title === site.name ? title : `${title} · ${site.name}`;
+---
+
+<!doctype html>
+<html lang="en-AU">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="canonical" href={new URL(Astro.url.pathname, site.url).href} />
+    <title>{pageTitle}</title>
+  </head>
+  <body class="flex min-h-dvh flex-col bg-background font-sans text-foreground">
+    <Navbar githubHref={githubHref} />
+    <Main className="flex-1">
+      <slot />
+    </Main>
+    <Footer />
+  </body>
+</html>

@@ -1,0 +1,24 @@
+---
+import { TextLink, Wordmark } from '@carinya-digital/ui';
+import { MobileNav } from '@/components/MobileNav';
+import { nav } from '@/content/site';
+
+interface Props {
+  githubHref?: string;
+}
+
+const { githubHref = nav.github.href } = Astro.props;
+---
+
+<header class="sticky top-0 z-10 border-b border-border bg-background">
+  <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-6 lg:px-10">
+    <Wordmark href="/" />
+    <nav class="hidden items-center gap-8 lg:flex">
+      <TextLink variant="nav" href={nav.resources.href}>{nav.resources.label}</TextLink>
+      <TextLink variant="nav" href={githubHref} className="border-b border-foreground pb-0.5">
+        {nav.github.label}
+      </TextLink>
+    </nav>
+    <MobileNav client:load githubHref={githubHref} />
+  </div>
+</header>

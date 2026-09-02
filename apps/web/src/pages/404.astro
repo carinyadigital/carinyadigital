@@ -1,0 +1,17 @@
+---
+import { buttonVariants, Container, Heading, Text } from '@carinya-digital/ui';
+import Layout from '@/layouts/Layout.astro';
+---
+
+<Layout title="Page not found" description="The page you were looking for could not be found.">
+  <section class="py-24 sm:py-32">
+    <Container className="flex flex-col items-center gap-6 text-center">
+      <p class="font-mono text-label uppercase tracking-label-loose text-secondary">404</p>
+      <Heading>Page not found</Heading>
+      <Text size="lg" className="max-w-xl">
+        The page you were looking for could not be found.
+      </Text>
+      <a class={buttonVariants({ variant: 'primary' })} href="/">Go back home</a>
+    </Container>
+  </section>
+</Layout>

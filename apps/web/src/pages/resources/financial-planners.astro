@@ -1,0 +1,147 @@
+---
+import {
+  BorderGrid,
+  buttonVariants,
+  CallToAction,
+  Card,
+  Chip,
+  Container,
+  Eyebrow,
+  Heading,
+  ImageSlot,
+  InstallCommand,
+  InverseSurface,
+  StatBand,
+  Subheading,
+  Tag,
+  Text,
+  TextLink,
+} from '@carinya-digital/ui';
+import FeatureSplit from '@/components/FeatureSplit.astro';
+import Layout from '@/layouts/Layout.astro';
+import { financialPlanners } from '@/content/site';
+---
+
+<Layout
+  title="Financial Planners"
+  description="Draft the paperwork around advice and credit — meeting prep, file notes, SOA/ROA/CAR and BID scaffolds, compliance checklists — in minutes. Every output is for a licensed human to review, edit, and sign."
+  githubHref={financialPlanners.github}
+>
+  <section class="py-16 sm:py-24">
+    <Container className="grid items-center gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
+      <div class="flex flex-col gap-5">
+        <Tag>Plugin marketplace</Tag>
+        <Heading>claude for australian financial planners</Heading>
+        <Text size="lg" className="max-w-[48ch]">
+          Draft the paperwork around advice and credit — meeting prep, file notes, SOA/ROA/CAR and
+          BID scaffolds, compliance checklists — in minutes. Every output is for a licensed human to
+          review, edit, and sign.
+        </Text>
+        <div class="flex flex-wrap items-center gap-3.5">
+          <Chip>Claude Code</Chip>
+          <Chip>Claude Cowork</Chip>
+        </div>
+      </div>
+      <ImageSlot
+        label="Screenshot of a drafted file note or SOA"
+        className="h-[380px] w-full"
+      />
+    </Container>
+  </section>
+
+  <StatBand items={[...financialPlanners.stats]} />
+
+  <InverseSurface>
+    <Container className="flex flex-col gap-5">
+      <Eyebrow tone="sage">Paste this into your agent</Eyebrow>
+      <InstallCommand client:load snippet={financialPlanners.install} />
+      <Text>
+        Run in Claude Code or Claude Cowork, then restart and run{' '}
+        <code class="font-mono text-small text-accent-tint">/advice-core:practice-setup</code>. Pick
+        user scope when asked.
+      </Text>
+    </Container>
+  </InverseSurface>
+
+  <FeatureSplit eyebrow="The trust spine" headline="every output is a draft, never a decision">
+    <ImageSlot slot="media" label="Screenshot showing a draft with source tags" className="h-[340px] w-full" />
+    <Text>
+      Source tags on product facts, rates, and fees. Incomplete-information warnings called out at
+      the top. An explicit gate before anything is sent, lodged, or filed. You remain the
+      authorising signatory.
+    </Text>
+  </FeatureSplit>
+
+  <section class="bg-card py-24">
+    <Container>
+      <Subheading>four plugins, one practice</Subheading>
+      <Text className="mt-3 mb-12 max-w-[64ch]">
+        Install the plugin that matches your role. Advice Core writes the shared practice profile
+        every other plugin reuses.
+      </Text>
+      <BorderGrid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          financialPlanners.plugins.map((plugin) => (
+            <Card className="flex flex-col gap-2.5 rounded-none bg-background p-6">
+              <p class="font-mono text-body text-primary">{plugin.name}</p>
+              <p class="flex-1 text-small leading-[1.55] text-muted-foreground">{plugin.bestFor}</p>
+              <p class="font-mono text-[13px] text-faint-foreground">{plugin.command}</p>
+            </Card>
+          ))
+        }
+      </BorderGrid>
+      <p class="mt-8 max-w-[64ch] text-small leading-body text-faint-foreground">
+        Nothing here provides personal advice or credit assistance, or certifies Best Interests
+        Duty, responsible lending, or TMD fit.
+      </p>
+    </Container>
+  </section>
+
+  <FeatureSplit
+    eyebrow="Worked example"
+    headline="file note from a consented transcript"
+    mediaPosition="end"
+  >
+    <ImageSlot slot="media" label="Screenshot of the generated file note" className="h-[340px] w-full" />
+    <Text>
+      You have a consented meeting transcript and the licensee’s file-note headings. Run{' '}
+      <code class="font-mono text-small text-primary">/advice-core:file-note</code>. You get a
+      structured note that separates what the client said from what you said, flags advice-shaped
+      moments you did not complete, and leaves an audit log with approver TBD.
+    </Text>
+  </FeatureSplit>
+
+  <CallToAction tone="inverse" headline="install advice-core and see your first draft">
+    <Text>
+      Two minutes with <code class="font-mono text-small text-accent-tint">--quick</code> setup, ten
+      to twenty for the full profile.
+    </Text>
+    <a class={buttonVariants({ variant: 'primary' })} href={financialPlanners.github}>
+      Get started on GitHub
+    </a>
+  </CallToAction>
+
+  <section class="py-24">
+    <Container>
+      <Subheading className="mb-12">pricing</Subheading>
+      <BorderGrid className="grid-cols-1 md:grid-cols-2">
+        {
+          financialPlanners.tiers.map((tier) => (
+            <Card className="flex flex-col gap-4 rounded-none p-8">
+              <Tag tone={tier.tone}>{tier.badge}</Tag>
+              <p class="font-heading text-[26px] text-foreground">{tier.name}</p>
+              <p class="font-heading text-[36px] leading-none text-secondary">{tier.price}</p>
+              <p class="flex-1 text-small leading-body text-muted-foreground">{tier.description}</p>
+            </Card>
+          ))
+        }
+      </BorderGrid>
+    </Container>
+  </section>
+
+  <section class="border-t border-border py-8">
+    <Container>
+      <TextLink variant="body" href="/resources">← All agent resources</TextLink>
+    </Container>
+  </section>
+</Layout>
