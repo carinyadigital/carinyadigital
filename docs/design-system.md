@@ -91,7 +91,7 @@ Current set (sized to marketing and simple forms):
 
 | Component | Purpose |
 | --- | --- |
-| `Button` | Primary / secondary / ghost / destructive / link. Wraps Base UI `Button`. |
+| `Button` / `ButtonLink` | Primary / secondary / ghost / destructive / link. Wraps Base UI `Button`. `ButtonLink` is the same styles on an anchor. |
 | `Input` | Text field with optional mono uppercase label. |
 | `Tag` | Light / dark tones. The only pill-radius component. |
 | `Card` / `ContentCard` | Flat surface; optional index, title, description. |
