@@ -28,6 +28,9 @@ export {
   FeatureCopy,
   type FeatureSplitProps,
 } from './feature-split.js';
+export { Feature, FeatureGrid, type FeatureProps, type FeatureGridProps, type FeatureGridItem } from './feature.js';
+export { Announcement, type AnnouncementProps } from './announcement.js';
+export { Stack } from './stack.js';
 export { StatBand, type StatBandProps, type StatBandItem } from './stat-band.js';
 export { CallToAction, type CallToActionProps } from './call-to-action.js';
 export { InverseSurface } from './inverse-surface.js';
