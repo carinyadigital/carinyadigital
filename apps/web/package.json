@@ -17,6 +17,7 @@
     "@fontsource/ibm-plex-mono": "^5.2.8",
     "@fontsource/ibm-plex-sans": "^5.2.8",
     "@fontsource/spectral": "^5.2.8",
+    "@sentry/astro": "^10.73.0",
     "astro": "^7.2.10",
     "react": "19.2.8",
     "react-dom": "19.2.8"

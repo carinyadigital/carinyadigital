@@ -6,7 +6,7 @@
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": [".next/**", "!.next/cache/**", "!.next/dev/**", "dist/**"],
-      "env": ["PUBLIC_GTM_ID"]
+      "env": ["PUBLIC_GTM_ID", "SENTRY_AUTH_TOKEN"]
     },
     "lint": {
       "dependsOn": ["^lint"]
