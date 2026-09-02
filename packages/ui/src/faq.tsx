@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { cn } from './lib/cn.js';
+import { Text } from './text.js';
 
 export interface FaqItemProps extends React.HTMLAttributes<HTMLDetailsElement> {
   question: React.ReactNode;
@@ -30,15 +31,50 @@ function FaqItem({ question, children, className, ...props }: FaqItemProps) {
 
 export interface FaqListProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
   heading?: React.ReactNode;
+  subheadline?: React.ReactNode;
+  layout?: 'stack' | 'split';
+  items?: readonly { question: React.ReactNode; answer: React.ReactNode }[];
 }
 
-function FaqList({ heading = 'FAQs', className, children, ...props }: FaqListProps) {
+function FaqList({
+  heading = 'FAQs',
+  subheadline,
+  layout = 'stack',
+  items,
+  className,
+  children,
+  ...props
+}: FaqListProps) {
+  const entries = items
+    ? items.map((item, index) => (
+        <FaqItem key={index} question={item.question}>
+          {item.answer}
+        </FaqItem>
+      ))
+    : children;
+
+  const list = <div className="flex flex-col border-b border-border">{entries}</div>;
+
+  if (layout === 'split') {
+    return (
+      <div className={cn('grid w-full gap-8 lg:grid-cols-2 lg:gap-16', className)} {...props}>
+        <div className="flex flex-col gap-4">
+          {heading ? (
+            <h2 className="font-heading text-h2 font-normal text-foreground">{heading}</h2>
+          ) : null}
+          {subheadline ? <Text>{subheadline}</Text> : null}
+        </div>
+        {list}
+      </div>
+    );
+  }
+
   return (
     <div className={cn('mx-auto w-full max-w-3xl', className)} {...props}>
       {heading ? (
         <h2 className="mb-8 font-heading text-h2 font-normal text-foreground">{heading}</h2>
       ) : null}
-      <div className="flex flex-col border-b border-border">{children}</div>
+      {list}
     </div>
   );
 }

@@ -9,6 +9,7 @@ export interface CallToActionProps extends React.HTMLAttributes<HTMLElement> {
   subheadline?: React.ReactNode;
   cta?: React.ReactNode;
   tone?: 'default' | 'inverse';
+  align?: 'start' | 'center';
 }
 
 function CallToAction({
@@ -16,6 +17,7 @@ function CallToAction({
   subheadline,
   cta,
   tone = 'default',
+  align = 'center',
   className,
   children,
   ...props
@@ -29,9 +31,17 @@ function CallToAction({
       )}
       {...props}
     >
-      <Container className="flex max-w-xl flex-col items-center gap-5 text-center">
-        <Subheading className="max-w-4xl">{headline}</Subheading>
-        {subheadline ? <Text>{subheadline}</Text> : null}
+      <Container
+        className={cn(
+          'flex gap-5',
+          align === 'center' && 'max-w-xl flex-col items-center text-center',
+          align === 'start' && 'flex-wrap items-end justify-between text-left',
+        )}
+      >
+        <div className={cn('flex flex-col gap-3', align === 'start' && 'max-w-[44ch]')}>
+          <Subheading className={align === 'center' ? 'max-w-4xl' : undefined}>{headline}</Subheading>
+          {subheadline ? <Text>{subheadline}</Text> : null}
+        </div>
         {cta}
         {children}
       </Container>

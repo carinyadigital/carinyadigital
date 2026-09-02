@@ -55,4 +55,24 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 );
 Button.displayName = 'Button';
 
-export { Button, buttonVariants };
+export interface ButtonLinkProps
+  extends Omit<ButtonProps, 'render' | 'nativeButton'> {
+  href: string;
+}
+
+const ButtonLink = React.forwardRef<HTMLAnchorElement, ButtonLinkProps>(
+  ({ href, className, variant, size, block = false, ...props }, ref) => {
+    return (
+      <BaseButton
+        ref={ref as React.Ref<HTMLButtonElement>}
+        nativeButton={false}
+        render={<a href={href} />}
+        className={cn(buttonVariants({ variant, size }), block && 'flex w-full', className)}
+        {...props}
+      />
+    );
+  },
+);
+ButtonLink.displayName = 'ButtonLink';
+
+export { Button, ButtonLink, buttonVariants };

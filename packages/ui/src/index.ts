@@ -1,4 +1,4 @@
-export { Button, buttonVariants, type ButtonProps } from './button.js';
+export { Button, ButtonLink, buttonVariants, type ButtonProps, type ButtonLinkProps } from './button.js';
 export {
   Card,
   CardIndex,

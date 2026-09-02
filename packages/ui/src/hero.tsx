@@ -7,29 +7,35 @@ import { Text } from './text.js';
 export interface HeroProps extends React.HTMLAttributes<HTMLElement> {
   eyebrow?: React.ReactNode;
   headline: React.ReactNode;
+  headlineClassName?: string;
   subheadline?: React.ReactNode;
   cta?: React.ReactNode;
   media?: React.ReactNode;
   tone?: 'default' | 'inverse';
+  align?: 'start' | 'center';
 }
 
 function Hero({
   eyebrow,
   headline,
+  headlineClassName,
   subheadline,
   cta,
   media,
   tone = 'default',
+  align = 'start',
   className,
   children,
   ...props
 }: HeroProps) {
+  const centered = align === 'center' && !media;
+
   const copy = (
-    <div className="flex flex-col gap-5">
+    <div className={cn('flex flex-col gap-5', centered && 'items-center text-center')}>
       {eyebrow}
-      <Heading>{headline}</Heading>
+      <Heading className={headlineClassName}>{headline}</Heading>
       {subheadline ? (
-        <Text size="lg" className="max-w-[56ch]">
+        <Text size="lg" className={cn('max-w-[56ch]', centered && 'text-center')}>
           {subheadline}
         </Text>
       ) : null}
@@ -48,7 +54,10 @@ function Hero({
       {...props}
     >
       <Container
-        className={cn(media && 'grid items-center gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-16')}
+        className={cn(
+          media && 'grid items-center gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-16',
+          centered && 'flex flex-col items-center',
+        )}
       >
         {copy}
         {media}

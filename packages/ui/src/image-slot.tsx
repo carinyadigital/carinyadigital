@@ -3,9 +3,19 @@ import { cn } from './lib/cn.js';
 
 export interface ImageSlotProps extends React.HTMLAttributes<HTMLDivElement> {
   label: string;
+  src?: string;
+  alt?: string;
 }
 
-function ImageSlot({ label, className, ...props }: ImageSlotProps) {
+function ImageSlot({ label, src, alt, className, ...props }: ImageSlotProps) {
+  if (src) {
+    return (
+      <div className={cn('overflow-hidden rounded-sm', className)} {...props}>
+        <img src={src} alt={alt ?? label} className="size-full object-cover" />
+      </div>
+    );
+  }
+
   return (
     <div
       className={cn(
