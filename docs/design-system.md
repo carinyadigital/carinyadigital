@@ -100,10 +100,11 @@ Current set (sized to marketing and simple forms):
 | `Heading` / `Subheading` / `Eyebrow` / `Text` | Type primitives (Spectral / Plex Sans / Plex Mono). |
 | `Wordmark` | Typographic carinya / **digital** mark with eucalypt dot. |
 | `TextLink` | Nav, action, muted, and body link styles. |
-| `Hero` / `FeatureSplit` / `StatBand` / `CallToAction` | Marketing section shells. |
+| `Hero` / `FeatureSplit` / `FeatureGrid` / `StatBand` / `CallToAction` | Marketing section shells. `Hero` and `CallToAction` take `align` (`start` / `center`); `StatBand` can lead with a headline and description; `FaqList` has `stack` and `split` layouts. |
+| `Feature` / `Announcement` / `Stack` | Text-only feature cell; compact linked eyebrow (square, mono, not a pill); flex grouping for Astro-to-React slots. |
 | `InstallCommand` | Copyable install snippet (client). |
-| `FaqItem` / `FaqList` | Disclosure FAQ, no extra JS framework. |
-| `ImageSlot` / `Chip` / `BorderGrid` / `InverseSurface` | Placeholders, chips, 1px gap grids, ink bands. |
+| `FaqItem` / `FaqList` | Disclosure FAQ, no extra JS framework. Native `<details>`. |
+| `ImageSlot` / `Chip` / `BorderGrid` / `InverseSurface` | Placeholders (optional `src` when an image exists), chips, 1px gap grids, ink bands. |
 | `cn` | `clsx` + `tailwind-merge` helper. |
 
 Reuse these before adding a new primitive. New components belong in this package when more than one app will use them; app-specific chrome stays in the app.
