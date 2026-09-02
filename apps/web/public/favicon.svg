@@ -1,4 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
-  <rect width="32" height="32" fill="#F6F3EC"/>
-  <circle cx="16" cy="16" r="6" fill="#5C6A4A"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="11" fill="#F6F3EC" />
+  <text
+    x="32"
+    y="36"
+    text-anchor="middle"
+    dominant-baseline="middle"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-weight="700"
+    font-size="34"
+  >
+    <tspan fill="#2B2822">c</tspan><tspan fill="#5C6A4A">d</tspan>
+  </text>
 </svg>
