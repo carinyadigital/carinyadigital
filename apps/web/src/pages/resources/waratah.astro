@@ -2,10 +2,8 @@
 import {
   BorderGrid,
   buttonVariants,
-  CallToAction,
   Card,
   Container,
-  FaqItem,
   FaqList,
   ImageSlot,
   StatBand,
@@ -14,7 +12,9 @@ import {
   Text,
   TextLink,
 } from '@carinya-digital/ui';
+import CallToAction from '@/components/CallToAction.astro';
 import FeatureSplit from '@/components/FeatureSplit.astro';
+import Hero from '@/components/Hero.astro';
 import Layout from '@/layouts/Layout.astro';
 import { waratah } from '@/content/site';
 ---
@@ -24,29 +24,22 @@ import { waratah } from '@/content/site';
   description="waratah is a portable agent definition, built to any provider. Define identity, instructions, connectors, and schedules once — deploy the same agent to Claude and beyond."
   githubHref={waratah.github}
 >
-  <section class="dark bg-background py-16 text-foreground sm:py-24">
-    <Container className="grid items-center gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
-      <div class="flex flex-col gap-5">
-        <Tag className="w-fit bg-charcoal text-sage">Agent framework</Tag>
-        <h1 class="font-heading text-display font-normal tracking-tight text-foreground">
-          agents that run themselves
-        </h1>
-        <Text size="lg" className="max-w-[48ch]">
-          waratah is a portable agent definition, built to any provider. Define identity,
-          instructions, connectors, and schedules once — deploy the same agent to Claude and beyond.
-        </Text>
-        <div class="mt-2 flex flex-wrap gap-4">
-          <a class={buttonVariants({ variant: 'primary' })} href={waratah.github}>
-            View on GitHub
-          </a>
-          <a class={buttonVariants({ variant: 'secondary' })} href={waratah.docs}>
-            Read the docs →
-          </a>
-        </div>
-      </div>
-      <ImageSlot label="Product screenshot or diagram" className="h-[380px] w-full" />
-    </Container>
-  </section>
+  <Hero
+    tone="inverse"
+    headline="agents that run themselves"
+    subheadline="waratah is a portable agent definition, built to any provider. Define identity, instructions, connectors, and schedules once — deploy the same agent to Claude and beyond."
+  >
+    <Tag slot="eyebrow" tone="dark">Agent framework</Tag>
+    <div class="mt-2 flex flex-wrap gap-4">
+      <a class={buttonVariants({ variant: 'primary' })} href={waratah.github}>
+        View on GitHub
+      </a>
+      <a class={buttonVariants({ variant: 'secondary' })} href={waratah.docs}>
+        Read the docs →
+      </a>
+    </div>
+    <ImageSlot slot="media" label="Product screenshot or diagram" className="h-[380px] w-full" />
+  </Hero>
 
   <StatBand items={[...waratah.stats]} />
 
@@ -152,13 +145,10 @@ and stop. Do not send without a human.`}
 
   <section class="border-t border-border py-24">
     <Container>
-      <FaqList>
-        {
-          waratah.faqs.map((faq) => (
-            <FaqItem question={faq.q}>{faq.a}</FaqItem>
-          ))
-        }
-      </FaqList>
+      <FaqList
+        layout="split"
+        items={waratah.faqs.map((faq) => ({ question: faq.q, answer: faq.a }))}
+      />
     </Container>
   </section>
 

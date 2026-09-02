@@ -2,12 +2,11 @@
 import {
   BorderGrid,
   buttonVariants,
-  CallToAction,
   Card,
   Chip,
   Container,
   Eyebrow,
-  Heading,
+  FaqList,
   ImageSlot,
   InstallCommand,
   InverseSurface,
@@ -17,7 +16,9 @@ import {
   Text,
   TextLink,
 } from '@carinya-digital/ui';
+import CallToAction from '@/components/CallToAction.astro';
 import FeatureSplit from '@/components/FeatureSplit.astro';
+import Hero from '@/components/Hero.astro';
 import Layout from '@/layouts/Layout.astro';
 import { financialPlanners } from '@/content/site';
 ---
@@ -27,27 +28,21 @@ import { financialPlanners } from '@/content/site';
   description="Draft the paperwork around advice and credit — meeting prep, file notes, SOA/ROA/CAR and BID scaffolds, compliance checklists — in minutes. Every output is for a licensed human to review, edit, and sign."
   githubHref={financialPlanners.github}
 >
-  <section class="py-16 sm:py-24">
-    <Container className="grid items-center gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
-      <div class="flex flex-col gap-5">
-        <Tag>Plugin marketplace</Tag>
-        <Heading>claude for australian financial planners</Heading>
-        <Text size="lg" className="max-w-[48ch]">
-          Draft the paperwork around advice and credit — meeting prep, file notes, SOA/ROA/CAR and
-          BID scaffolds, compliance checklists — in minutes. Every output is for a licensed human to
-          review, edit, and sign.
-        </Text>
-        <div class="flex flex-wrap items-center gap-3.5">
-          <Chip>Claude Code</Chip>
-          <Chip>Claude Cowork</Chip>
-        </div>
-      </div>
-      <ImageSlot
-        label="Screenshot of a drafted file note or SOA"
-        className="h-[380px] w-full"
-      />
-    </Container>
-  </section>
+  <Hero
+    headline="claude for australian financial planners"
+    subheadline="Draft the paperwork around advice and credit — meeting prep, file notes, SOA/ROA/CAR and BID scaffolds, compliance checklists — in minutes. Every output is for a licensed human to review, edit, and sign."
+  >
+    <Tag slot="eyebrow">Plugin marketplace</Tag>
+    <div class="flex flex-wrap items-center gap-3.5">
+      <Chip>Claude Code</Chip>
+      <Chip>Claude Cowork</Chip>
+    </div>
+    <ImageSlot
+      slot="media"
+      label="Screenshot of a drafted file note or SOA"
+      className="h-[380px] w-full"
+    />
+  </Hero>
 
   <StatBand items={[...financialPlanners.stats]} />
 
@@ -136,6 +131,12 @@ import { financialPlanners } from '@/content/site';
           ))
         }
       </BorderGrid>
+    </Container>
+  </section>
+
+  <section class="border-t border-border py-24">
+    <Container>
+      <FaqList items={financialPlanners.faqs.map((faq) => ({ question: faq.q, answer: faq.a }))} />
     </Container>
   </section>
 

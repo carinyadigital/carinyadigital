@@ -1,36 +1,32 @@
 ---
 import {
   BorderGrid,
+  buttonVariants,
   Card,
   CardDescription,
   CardTitle,
   Container,
   Eyebrow,
-  Heading,
   Tag,
-  Text,
   TextLink,
 } from '@carinya-digital/ui';
+import CallToAction from '@/components/CallToAction.astro';
+import Hero from '@/components/Hero.astro';
 import Layout from '@/layouts/Layout.astro';
-import { resources } from '@/content/site';
+import { resources, site } from '@/content/site';
 ---
 
 <Layout
   title="Agent Resources"
   description="Proven agent resources, suitable for any business. Every plugin and agent directory is open source — inspect it, run it yourself, or ask us to run it for you."
 >
-  <section class="py-16 sm:py-24">
-    <Container>
-      <Eyebrow>Agent Resources</Eyebrow>
-      <Heading className="mt-4 max-w-[22ch] text-h1">
-        agents for the recurring work, ready to install
-      </Heading>
-      <Text size="lg" className="mt-5 max-w-[60ch]">
-        Proven agent resources, suitable for any business. Every plugin and agent directory below is
-        open source — inspect it, run it yourself, or ask us to run it for you.
-      </Text>
-    </Container>
-  </section>
+  <Hero
+    headline="agents for the recurring work, ready to install"
+    headlineClassName="max-w-[22ch] text-h1"
+    subheadline="Proven agent resources, suitable for any business. Every plugin and agent directory below is open source — inspect it, run it yourself, or ask us to run it for you."
+  >
+    <Eyebrow slot="eyebrow">Agent Resources</Eyebrow>
+  </Hero>
 
   <section class="pb-24">
     <Container>
@@ -56,4 +52,15 @@ import { resources } from '@/content/site';
       </BorderGrid>
     </Container>
   </section>
+
+  <CallToAction
+    align="start"
+    class="border-t border-border py-16"
+    headline="watch the repos"
+    subheadline="New agent resources go up as they’re built and proven. Nothing to sign up for."
+  >
+    <a class={buttonVariants({ variant: 'primary' })} href={site.github}>
+      GitHub
+    </a>
+  </CallToAction>
 </Layout>
