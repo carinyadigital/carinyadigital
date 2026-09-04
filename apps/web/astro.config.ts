@@ -6,6 +6,11 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   site: 'https://carinyadigital.com',
+  redirects: {
+    '/resources': '/agent-resources',
+    '/resources/financial-planners': '/financial-planners',
+    '/resources/waratah': '/waratah',
+  },
   integrations: [
     sentry({
       project: 'carinyadigital',

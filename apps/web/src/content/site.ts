@@ -9,13 +9,13 @@ export const site = {
 } as const;
 
 export const nav = {
-  resources: { href: '/resources', label: 'Agent Resources' },
+  resources: { href: '/agent-resources', label: 'Agent Resources' },
   github: { href: site.github, label: 'GitHub →' },
 } as const;
 
 export const home = {
   announcement: {
-    href: '/resources/financial-planners',
+    href: '/financial-planners',
     text: 'financial planners is available',
     cta: 'View resource',
   },
@@ -53,7 +53,7 @@ export const homeResources = [
     title: 'financial planners',
     description:
       'Claude Code plugins that draft meeting prep, file notes, SOA/BID scaffolds, and compliance checklists for AU advisers, brokers, and compliance teams.',
-    href: '/resources/financial-planners',
+    href: '/financial-planners',
     linkLabel: 'View resource',
   },
   {
@@ -61,14 +61,14 @@ export const homeResources = [
     title: 'waratah',
     description:
       'A portable way to define an agent once — identity, instructions, connectors, schedules — and deploy it to Claude and beyond.',
-    href: '/resources/waratah',
+    href: '/waratah',
     linkLabel: 'View resource',
   },
   {
     tag: 'More soon',
     title: 'more resources on the way',
     description: "New agent resources get published as they're built and proven.",
-    href: '/resources',
+    href: '/agent-resources',
     linkLabel: 'See all resources',
   },
 ] as const;
@@ -81,7 +81,7 @@ export const resources = [
     title: 'financial planners',
     description:
       'Plugins for AU advisers, mortgage brokers, and compliance teams — meeting prep, file notes, SOA/ROA/CAR and BID scaffolds, compliance checklists. Every output is a draft for licensed human review.',
-    href: '/resources/financial-planners',
+    href: '/financial-planners',
     githubHref: 'https://github.com/carinyadigital/financial-planners',
   },
   {
@@ -91,7 +91,7 @@ export const resources = [
     title: 'waratah',
     description:
       'Define an agent once — identity, instructions, connectors, schedules — and deploy it to Claude and other providers. The directory is the source of truth; built artifacts are reviewable diffs.',
-    href: '/resources/waratah',
+    href: '/waratah',
     githubHref: 'https://github.com/carinyadigital/waratah',
   },
   {
