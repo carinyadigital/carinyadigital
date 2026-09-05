@@ -1,11 +1,20 @@
 ---
 import { Container, TextLink } from '@carinya-digital/ui';
 import { footer, site } from '@/content/site';
+
+const columnCountClass = {
+  1: 'lg:grid-cols-1',
+  2: 'lg:grid-cols-2',
+  3: 'lg:grid-cols-3',
+  4: 'lg:grid-cols-4',
+  5: 'lg:grid-cols-5',
+  6: 'lg:grid-cols-6',
+}[footer.length] ?? 'lg:grid-cols-4';
 ---
 
 <footer class="border-t border-border pt-16">
   <Container className="flex flex-col gap-12 pb-8">
-    <nav class="grid grid-cols-2 gap-8 text-small lg:grid-cols-5" aria-label="Footer">
+    <nav class:list={['grid grid-cols-2 gap-8 text-small', columnCountClass]} aria-label="Footer">
       {
         footer.map((column) => (
           <div>

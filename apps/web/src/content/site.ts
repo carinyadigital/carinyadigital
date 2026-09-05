@@ -35,12 +35,16 @@ export const footer = [
   },
   {
     heading: 'Learn',
-    links: [{ label: 'Docs (coming soon)' }],
+    links: [
+      { label: 'Agent Resources', href: '/agent-resources' },
+      { label: 'Docs (coming soon)' },
+    ],
   },
   {
     heading: 'Company',
     links: [
       { label: 'About', href: '/about' },
+      { label: 'Contact', href: nav.cta.href },
       { label: 'GitHub', href: site.github },
     ],
   },
