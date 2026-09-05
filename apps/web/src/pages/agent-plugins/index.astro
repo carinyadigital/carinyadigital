@@ -7,7 +7,6 @@ import {
   Container,
   Eyebrow,
   FaqList,
-  ImageSlot,
   InstallCommand,
   InverseSurface,
   StatBand,
@@ -19,6 +18,9 @@ import {
 import CallToAction from '@/components/CallToAction.astro';
 import FeatureSplit from '@/components/FeatureSplit.astro';
 import Hero from '@/components/Hero.astro';
+import BrandVoiceDraft from '@/components/media/BrandVoiceDraft.astro';
+import DraftReview from '@/components/media/DraftReview.astro';
+import PluginSession from '@/components/media/PluginSession.astro';
 import Layout from '@/layouts/Layout.astro';
 import { agentPlugins } from '@/content/site';
 ---
@@ -38,11 +40,7 @@ import { agentPlugins } from '@/content/site';
       <Chip>Claude Cowork</Chip>
       <Chip>Cursor</Chip>
     </div>
-    <ImageSlot
-      slot="media"
-      label="Screenshot of a practice plugin in Claude Code or Cursor"
-      className="h-[380px] w-full"
-    />
+    <PluginSession slot="media" class="h-[380px] w-full" />
   </Hero>
 
   <StatBand items={[...agentPlugins.stats]} />
@@ -60,7 +58,7 @@ import { agentPlugins } from '@/content/site';
   </InverseSurface>
 
   <FeatureSplit eyebrow="The review gate" headline="every output is a draft, never a finished deliverable">
-    <ImageSlot slot="media" label="Screenshot of a draft artefact awaiting review" className="h-[340px] w-full" />
+    <DraftReview slot="media" class="h-[340px] w-full" />
     <Text>
       Skills draft work products. You verify accuracy, brand fit, accessibility, security, and
       compliance before anything ships. Nothing here is a substitute for qualified professional
@@ -94,7 +92,7 @@ import { agentPlugins } from '@/content/site';
     headline="brand voice from the copy you already have"
     mediaPosition="end"
   >
-    <ImageSlot slot="media" label="Screenshot of a drafted brand voice guide" className="h-[340px] w-full" />
+    <BrandVoiceDraft slot="media" class="h-[340px] w-full" />
     <Text>
       You have a bound instance and some existing copy — website, social, or a voice interview. Run{' '}
       <code class="font-mono text-small text-primary">/brand-creative:brand-voice write</code>. You

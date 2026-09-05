@@ -1,0 +1,52 @@
+---
+import ProductFrame from './ProductFrame.astro';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+
+const rows = [
+  { name: 'agent/', kind: 'dir', depth: 0 },
+  { name: 'instructions.md', kind: 'file', depth: 1 },
+  { name: 'connectors/', kind: 'dir', depth: 1 },
+  { name: 'schedules/', kind: 'dir', depth: 1 },
+  { name: 'skills/', kind: 'dir', depth: 1 },
+  { name: 'escalate.md', kind: 'file', depth: 2 },
+  { name: 'subagents/', kind: 'dir', depth: 1 },
+  { name: 'systems-analyst/', kind: 'dir', depth: 2 },
+] as const;
+---
+
+<ProductFrame
+  filename="agent directory"
+  label="waratah agent directory with instructions, connectors, schedules, skills, and subagents"
+  status="Authoritative"
+  class={className}
+>
+  <ul class="space-y-1.5 font-mono text-[13px] leading-snug">
+    {
+      rows.map((row) => (
+        <li
+          class:list={[
+            'flex items-center gap-2 rounded-sm border border-border bg-background px-3 py-1.5',
+            row.depth === 1 && 'ml-4',
+            row.depth === 2 && 'ml-8',
+          ]}
+        >
+          <span
+            class:list={[
+              'inline-block size-1.5 shrink-0 rounded-full',
+              row.kind === 'dir' ? 'bg-primary' : 'bg-secondary',
+            ]}
+            aria-hidden="true"
+          />
+          <span class={row.kind === 'dir' ? 'text-foreground' : 'text-muted-foreground'}>
+            {row.name}
+          </span>
+        </li>
+      ))
+    }
+  </ul>
+</ProductFrame>

@@ -7,7 +7,6 @@ import {
   Container,
   Eyebrow,
   FaqList,
-  ImageSlot,
   InstallCommand,
   InverseSurface,
   StatBand,
@@ -19,6 +18,7 @@ import {
 import CallToAction from '@/components/CallToAction.astro';
 import FeatureSplit from '@/components/FeatureSplit.astro';
 import Hero from '@/components/Hero.astro';
+import FileNoteDraft from '@/components/media/FileNoteDraft.astro';
 import Layout from '@/layouts/Layout.astro';
 import { financialPlanners } from '@/content/site';
 ---
@@ -37,11 +37,7 @@ import { financialPlanners } from '@/content/site';
       <Chip>Claude Code</Chip>
       <Chip>Claude Cowork</Chip>
     </div>
-    <ImageSlot
-      slot="media"
-      label="Screenshot of a drafted file note or SOA"
-      className="h-[380px] w-full"
-    />
+    <FileNoteDraft slot="media" variant="hero" class="h-[380px] w-full" />
   </Hero>
 
   <StatBand items={[...financialPlanners.stats]} />
@@ -59,7 +55,7 @@ import { financialPlanners } from '@/content/site';
   </InverseSurface>
 
   <FeatureSplit eyebrow="The trust spine" headline="every output is a draft, never a decision">
-    <ImageSlot slot="media" label="Screenshot showing a draft with source tags" className="h-[340px] w-full" />
+    <FileNoteDraft slot="media" variant="sources" class="h-[340px] w-full" />
     <Text>
       Source tags on product facts, rates, and fees. Incomplete-information warnings called out at
       the top. An explicit gate before anything is sent, lodged, or filed. You remain the
@@ -97,7 +93,7 @@ import { financialPlanners } from '@/content/site';
     headline="file note from a consented transcript"
     mediaPosition="end"
   >
-    <ImageSlot slot="media" label="Screenshot of the generated file note" className="h-[340px] w-full" />
+    <FileNoteDraft slot="media" variant="generated" class="h-[340px] w-full" />
     <Text>
       You have a consented meeting transcript and the licensee’s file-note headings. Run{' '}
       <code class="font-mono text-small text-primary">/advice-core:file-note</code>. You get a

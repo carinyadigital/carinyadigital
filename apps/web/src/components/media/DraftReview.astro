@@ -1,0 +1,47 @@
+---
+import ProductFrame from './ProductFrame.astro';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<ProductFrame
+  filename="content-calendar.md"
+  label="Draft content calendar awaiting human review"
+  status="Draft"
+  class={className}
+>
+  <div class="flex h-full flex-col gap-4">
+    <p class="font-mono text-label uppercase tracking-label text-secondary">
+      Awaiting review · not for publication
+    </p>
+    <div>
+      <p class="font-heading text-[22px] leading-snug text-foreground">
+        Content calendar — week of 8 Sep
+      </p>
+      <p class="mt-2 text-small leading-snug text-muted-foreground">
+        Slots drafted from the brand voice on file. Nothing is scheduled.
+      </p>
+    </div>
+    <ul class="space-y-2 font-mono text-[13px] leading-snug">
+      <li class="flex justify-between gap-3 border-b border-border pb-2">
+        <span class="text-foreground">Mon · social</span>
+        <span class="text-muted-foreground">Autumn harvest note</span>
+      </li>
+      <li class="flex justify-between gap-3 border-b border-border pb-2">
+        <span class="text-foreground">Wed · site</span>
+        <span class="text-muted-foreground">Seasonal produce page</span>
+      </li>
+      <li class="flex justify-between gap-3">
+        <span class="text-foreground">Fri · email</span>
+        <span class="text-muted-foreground">Farm-gate hours reminder</span>
+      </li>
+    </ul>
+    <p class="font-mono text-label uppercase tracking-label text-faint-foreground">
+      Accuracy · brand fit · still yours to check
+    </p>
+  </div>
+</ProductFrame>

@@ -1,0 +1,48 @@
+---
+import ProductFrame from './ProductFrame.astro';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+
+const practices = [
+  { command: '/brand-creative:setup', label: 'Brand voice and visual identity' },
+  { command: '/content-marketing:setup', label: 'Editorial calendar and social drafts' },
+  { command: '/design:setup', label: 'Wireframes and live UX review' },
+] as const;
+---
+
+<ProductFrame
+  filename="claude code · cursor"
+  label="Practice plugin session showing brand-creative installed in Claude Code or Cursor"
+  status="Installed"
+  class={className}
+>
+  <div class="flex h-full flex-col gap-4">
+    <div class="rounded-sm border border-border bg-background px-3.5 py-3">
+      <p class="font-mono text-[13px] text-muted-foreground">
+        /plugin install brand-creative@agent-plugins
+      </p>
+      <p class="mt-2 font-mono text-small text-primary">brand-creative ready · run setup</p>
+    </div>
+    <ul class="space-y-2">
+      {
+        practices.map((practice, index) => (
+          <li
+            class:list={[
+              'flex flex-col gap-0.5 rounded-sm border px-3.5 py-2.5',
+              index === 0
+                ? 'border-primary bg-background'
+                : 'border-border bg-background text-muted-foreground',
+            ]}
+          >
+            <p class="font-mono text-small text-foreground">{practice.command}</p>
+            <p class="text-[13px] leading-snug">{practice.label}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</ProductFrame>
