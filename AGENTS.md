@@ -26,7 +26,7 @@ Where a package has its own `AGENTS.md`, that nested file wins for work inside i
 | `pnpm build` | Production build all packages |
 | `pnpm format` | Prettier write `**/*.{ts,tsx,md}` — does **not** include `.astro` or `.css` |
 
-No test runner or CI is wired yet.
+CI: GitHub Actions on `main` and pull requests (`pnpm lint`, `pnpm check-types`, `pnpm build`). Dependabot groups weekly npm and Actions updates. No test runner is wired yet.
 
 ## Cross-Package Patterns
 
