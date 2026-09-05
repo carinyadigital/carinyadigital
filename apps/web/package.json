@@ -8,7 +8,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "lint": "eslint . --max-warnings 0",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "check-not-found": "node ./scripts/check-not-found-status.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",
