@@ -1,9 +1,9 @@
 import { config } from '@repo/eslint-config/base';
 
-/** @type {import('eslint').Linter.Config[]} */
+/** @type {import("eslint").Linter.Config[]} */
 export default [
   ...config,
   {
-    ignores: ['dist/**', '.astro/**', 'node_modules/**'],
+    ignores: ['dist/**', '.astro/**', 'node_modules/**', 'scripts/**'],
   },
 ];

@@ -2,9 +2,21 @@
 import { buttonVariants, Eyebrow, TextLink } from '@carinya-digital/ui';
 import Hero from '@/components/Hero.astro';
 import Layout from '@/layouts/Layout.astro';
+
+// Hosts serve this document for unknown routes. Setting 404 here means
+// on-demand rendering and the preview server send a real Not Found
+// status instead of a 200 that only looks like an error page.
+Astro.response.status = 404;
+Astro.response.statusText = 'Not Found';
+Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow');
 ---
 
-<Layout title="Page not found" description="The page you were looking for could not be found.">
+<Layout
+  title="Page not found"
+  description="The page you were looking for could not be found."
+  robots="noindex, nofollow"
+  canonical={false}
+>
   <Hero
     align="center"
     class="py-24 sm:py-32"
