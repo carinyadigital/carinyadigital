@@ -1,0 +1,128 @@
+---
+import {
+  buttonVariants,
+  Chip,
+  Container,
+  Eyebrow,
+  FaqList,
+  FeatureGrid,
+  ImageSlot,
+  InverseSurface,
+  StatBand,
+  Subheading,
+  Tag,
+  Text,
+  TextLink,
+} from '@carinya-digital/ui';
+import CallToAction from '@/components/CallToAction.astro';
+import FeatureSplit from '@/components/FeatureSplit.astro';
+import Hero from '@/components/Hero.astro';
+import Layout from '@/layouts/Layout.astro';
+import { claudeCowork } from '@/content/site';
+---
+
+<Layout
+  title="Claude Cowork for Business"
+  description="Carinya Digital sets up Claude Cowork for small and medium businesses — configured to your tools, guarded by a trust spine, and kept tuned so your team spends the day on work people actually enjoy."
+>
+  <Hero
+    headline="set up claude cowork for your business"
+    subheadline="We configure Claude Cowork around the way your team already works — the tools, the files, the recurring tasks — so the busywork moves to an agent and your people get their day back."
+  >
+    <Tag slot="eyebrow">Claude Cowork specialists</Tag>
+    <div class="flex flex-wrap items-center gap-3.5">
+      <Chip>Setup &amp; configuration</Chip>
+      <Chip>Trust spine included</Chip>
+      <Chip>Managed support</Chip>
+    </div>
+    <ImageSlot
+      slot="media"
+      label="Screenshot of a Claude Cowork task running in a business's own folder"
+      className="h-[380px] w-full"
+    />
+  </Hero>
+
+  <StatBand items={[...claudeCowork.stats]} />
+
+  <InverseSurface>
+    <Container className="grid items-start gap-12 lg:grid-cols-[1fr_1.4fr] lg:gap-16">
+      <div>
+        <Eyebrow tone="sage">How we work</Eyebrow>
+        <Subheading className="mt-4">
+          diagnose, set up,<br />keep it tuned
+        </Subheading>
+      </div>
+      <div class="flex flex-col gap-5">
+        <Text className="max-w-[60ch]">
+          We start by mapping the recurring work in your business — the drafting, filing, chasing,
+          and reporting that eats a day every week. Claude Cowork gets configured around exactly
+          that work, inside the folders and tools you already use. Then we stay on to tune it as
+          your business changes, so it keeps earning its place rather than drifting out of date.
+        </Text>
+      </div>
+    </Container>
+  </InverseSurface>
+
+  <section class="py-24">
+    <Container>
+      <Eyebrow>Why set it up with us</Eyebrow>
+      <Subheading className="mt-3 mb-3">
+        six things a good claude cowork setup gets right
+      </Subheading>
+      <Text className="mb-12 max-w-[64ch]">
+        Handing work to an agent is easy. Handing it over safely, securely, and in a way people
+        actually trust is the part most businesses get stuck on — it's the part we do for you.
+      </Text>
+      <FeatureGrid items={[...claudeCowork.cards]} />
+    </Container>
+  </section>
+
+  <FeatureSplit eyebrow="Worked example" headline="the monday report that used to take an afternoon">
+    <ImageSlot slot="media" label="Screenshot of a scheduled report draft" className="h-[340px] w-full" />
+    <Text>
+      Your team already pulls the same numbers into the same deck every week. Claude Cowork is
+      scheduled to make that pull, compare it against the period before, and build the draft
+      overnight — ready for a five-minute check in the morning instead of a Friday afternoon
+      rebuild.
+    </Text>
+  </FeatureSplit>
+
+  <FeatureSplit
+    eyebrow="Why it matters"
+    headline="people do better work when they're not doing the boring parts"
+    mediaPosition="end"
+    tone="card"
+  >
+    <ImageSlot slot="media" label="Screenshot of a team member reviewing a draft" className="h-[340px] w-full" />
+    <Text>
+      Removing the recurring admin isn't just a productivity number. It changes how a workday
+      feels — people spend their attention on judgement calls, relationships, and the work they
+      were actually hired to do, instead of the parts that wear them down.
+    </Text>
+  </FeatureSplit>
+
+  <CallToAction
+    tone="inverse"
+    headline="see what a claude cowork setup could take off your plate"
+  >
+    <Text>
+      Tell us about the recurring work in your business and we'll tell you honestly whether Claude
+      Cowork is a fit before anything is scoped or priced.
+    </Text>
+    <a class={buttonVariants({ variant: 'primary' })} href={claudeCowork.contactHref}>
+      Talk to us
+    </a>
+  </CallToAction>
+
+  <section class="border-t border-border py-24">
+    <Container>
+      <FaqList items={claudeCowork.faqs.map((faq) => ({ question: faq.q, answer: faq.a }))} />
+    </Container>
+  </section>
+
+  <section class="border-t border-border py-8">
+    <Container>
+      <TextLink variant="body" href="/agent-resources">← All agent resources</TextLink>
+    </Container>
+  </section>
+</Layout>

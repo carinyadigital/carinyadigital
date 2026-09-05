@@ -26,6 +26,10 @@ export const footer = [
     ],
   },
   {
+    heading: 'Services',
+    links: [{ label: 'Claude Cowork Setup', href: '/claude-cowork' }],
+  },
+  {
     heading: 'Learn',
     links: [{ label: 'Docs (coming soon)' }],
   },
@@ -55,35 +59,48 @@ export const home = {
       description: 'Nothing runs unsupervised — every output is a draft for a person to review.',
     },
   ],
-} as const;
-
-export const homeResources = [
-  {
-    tag: 'Agent framework',
-    title: 'waratah',
+  cowork: {
+    eyebrow: 'New',
+    headline: 'set up claude cowork for your business',
     description:
-      'A portable way to define an agent once — identity, instructions, connectors, schedules — and deploy it to Claude and beyond.',
+      'We configure Claude Cowork around your tools, your files, and the recurring work that eats a day every week — with a trust spine, security boundaries, and your regulatory obligations built in from day one.',
+    href: '/claude-cowork',
+    linkLabel: 'See how a setup works',
+    mediaLabel: 'Screenshot of Claude Cowork configured for a business',
+  },
+  waratah: {
+    eyebrow: 'Agent framework',
+    headline: 'define an agent once, run it anywhere',
+    description:
+      'A portable way to define an agent once — identity, instructions, connectors, schedules — and deploy it to Claude and beyond. The directory is the source of truth; built artifacts are reviewable diffs.',
     href: '/waratah',
-    linkLabel: 'View resource',
-    featured: true,
+    linkLabel: 'See how waratah works',
+    mediaLabel: 'Directory-structure diagram of a waratah agent',
   },
-  {
-    tag: 'Plugin marketplace',
-    title: 'agent plugins',
+  resources: {
+    headline: 'agent resources',
     description:
-      'Practice plugins for brand, content, product, design, search, and engineering — for Claude Code, Claude Cowork, and Cursor.',
-    href: '/agent-plugins',
-    linkLabel: 'View resource',
+      'Practice plugins for Claude Code, Claude Cowork, and Cursor — free to inspect, fork, and run yourself.',
+    items: [
+      {
+        tag: 'Plugin marketplace',
+        title: 'agent plugins',
+        description:
+          'Practice plugins for brand, content, product, design, search, and engineering — for Claude Code, Claude Cowork, and Cursor.',
+        href: '/agent-plugins',
+        linkLabel: 'View resource',
+      },
+      {
+        tag: 'Plugin marketplace',
+        title: 'financial planners',
+        description:
+          'Claude Code plugins that draft meeting prep, file notes, SOA/BID scaffolds, and compliance checklists for AU advisers, brokers, and compliance teams.',
+        href: '/financial-planners',
+        linkLabel: 'View resource',
+      },
+    ],
   },
-  {
-    tag: 'Plugin marketplace',
-    title: 'financial planners',
-    description:
-      'Claude Code plugins that draft meeting prep, file notes, SOA/BID scaffolds, and compliance checklists for AU advisers, brokers, and compliance teams.',
-    href: '/financial-planners',
-    linkLabel: 'View resource',
-  },
-] as const;
+} as const;
 
 export const resources = [
   {
@@ -115,6 +132,16 @@ export const resources = [
       'Define an agent once — identity, instructions, connectors, schedules — and deploy it to Claude and other providers. The directory is the source of truth; built artifacts are reviewable diffs.',
     href: '/waratah',
     githubHref: 'https://github.com/carinyadigital/waratah',
+  },
+  {
+    slug: 'claude-cowork',
+    tag: 'Managed setup',
+    status: 'Available',
+    title: 'claude cowork for business',
+    description:
+      'We configure Claude Cowork around your business — the tools, the files, the recurring work — with a trust spine, security boundaries, and your regulatory obligations built in from day one.',
+    href: '/claude-cowork',
+    githubHref: site.github,
   },
   {
     slug: 'more',
@@ -329,6 +356,73 @@ export const waratah = {
     {
       q: 'Is dist/ safe to trust?',
       a: "Yes — it's committed output, and deploy refuses to ship a stale dist/, so what ships is always what was reviewed.",
+    },
+  ],
+} as const;
+
+export const claudeCowork = {
+  github: site.github,
+  contactHref: 'mailto:hello@carinyadigital.com',
+  stats: [
+    {
+      value: '3',
+      label: 'steps — find the recurring work, set up Claude Cowork around it, then keep it tuned',
+    },
+    { value: '0', label: 'tasks that ship without a person reviewing them first' },
+    { value: 'AU', label: 'built and run for Australian small and medium businesses' },
+  ],
+  cards: [
+    {
+      headline: 'sharper business processes',
+      description:
+        'Claude Cowork works inside the folders and tools your team already uses — reading a spreadsheet, drafting a document, updating a record — across a whole task end to end, not one file at a time.',
+    },
+    {
+      headline: 'answers, not another search',
+      description:
+        'Instead of hunting through shared drives, inboxes, and old threads, your team asks a question and gets a sourced answer pulled from the files and systems they already have access to.',
+    },
+    {
+      headline: 'less busywork, more of the work people enjoy',
+      description:
+        'The recurring, repetitive parts of a role — chasing information, reformatting reports, updating the same three systems — move to Claude Cowork, so people spend their day on the work that actually needs a person.',
+    },
+    {
+      headline: 'the trust spine',
+      description:
+        'Every output is a draft for a person to review. Claude Cowork asks before acting on anything consequential, and nothing goes out the door without someone accountable signing off.',
+    },
+    {
+      headline: 'information security by design',
+      description:
+        'Claude Cowork only reaches the folders and tools you connect it to — nothing else. You decide what it can read, write, or send before it runs a single task.',
+    },
+    {
+      headline: 'set up with your obligations in mind',
+      description:
+        'We configure Claude Cowork around the record-keeping, privacy, and industry rules your business already carries. You and your advisers stay responsible for what it produces — we make sure the setup does not work against you.',
+    },
+  ],
+  faqs: [
+    {
+      q: 'What is Claude Cowork?',
+      a: 'Claude Cowork is Anthropic’s product for handing multi-step work to Claude across the files and tools you use. It works in the background and comes back with something ready for you to review.',
+    },
+    {
+      q: 'What does a setup with Carinya Digital include?',
+      a: 'We map the recurring work worth automating, configure Claude Cowork around your actual folders, tools, and approval points, and stay on to tune it as your business changes.',
+    },
+    {
+      q: 'Do we need an engineering team?',
+      a: 'No — that is the point. We do the configuration; your team keeps working the way it already does, just without the recurring admin.',
+    },
+    {
+      q: 'Is our data safe?',
+      a: 'Claude Cowork can only reach the folders and tools you explicitly connect. Nothing else is visible to it, and nothing goes out the door without a person reviewing it first.',
+    },
+    {
+      q: 'How is this different from just giving our team Claude Cowork directly?',
+      a: 'Nothing stops a team from doing that — most get stuck on which tasks to hand over and how to set the guardrails. We do that configuration work up front and keep it maintained afterwards.',
     },
   ],
 } as const;

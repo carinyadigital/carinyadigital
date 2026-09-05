@@ -8,17 +8,18 @@ import {
   Container,
   Eyebrow,
   FeatureGrid,
+  ImageSlot,
   InverseSurface,
   Subheading,
   Tag,
   Text,
   TextLink,
-  cn,
 } from '@carinya-digital/ui';
 import CallToAction from '@/components/CallToAction.astro';
+import FeatureSplit from '@/components/FeatureSplit.astro';
 import Hero from '@/components/Hero.astro';
 import Layout from '@/layouts/Layout.astro';
-import { home, homeResources } from '@/content/site';
+import { home } from '@/content/site';
 ---
 
 <Layout>
@@ -59,29 +60,40 @@ import { home, homeResources } from '@/content/site';
     </Container>
   </section>
 
-  <section class="py-24">
+  <FeatureSplit
+    eyebrow={home.cowork.eyebrow}
+    headline={home.cowork.headline}
+    tone="card"
+  >
+    <ImageSlot slot="media" label={home.cowork.mediaLabel} className="h-[340px] w-full" />
+    <Text className="mb-5">{home.cowork.description}</Text>
+    <TextLink href={home.cowork.href}>{home.cowork.linkLabel} →</TextLink>
+  </FeatureSplit>
+
+  <FeatureSplit
+    eyebrow={home.waratah.eyebrow}
+    headline={home.waratah.headline}
+    mediaPosition="end"
+  >
+    <ImageSlot slot="media" label={home.waratah.mediaLabel} className="h-[340px] w-full" />
+    <Text className="mb-5">{home.waratah.description}</Text>
+    <TextLink href={home.waratah.href}>{home.waratah.linkLabel} →</TextLink>
+  </FeatureSplit>
+
+  <section class="bg-card py-24">
     <Container>
       <div class="mb-16 flex flex-wrap items-baseline justify-between gap-5">
-        <Subheading>open, not rented.</Subheading>
-        <Text className="max-w-[40ch]">
-          Every agent resource is free to inspect, fork, and run yourself — no black box, no lock-in.
-        </Text>
+        <Subheading>{home.resources.headline}</Subheading>
+        <Text className="max-w-[40ch]">{home.resources.description}</Text>
       </div>
       <BorderGrid className="grid-cols-1 sm:grid-cols-2">
         {
-          homeResources.map((resource) => (
-            <Card
-              className={cn(
-                'flex flex-col gap-3.5 rounded-none',
-                'featured' in resource && resource.featured && 'sm:col-span-2',
-              )}
-            >
+          home.resources.items.map((resource) => (
+            <Card className="flex flex-col gap-3.5 rounded-none">
               <Tag>{resource.tag}</Tag>
               <CardTitle>{resource.title}</CardTitle>
               <CardDescription className="flex-1">{resource.description}</CardDescription>
-              <TextLink href={resource.href}>
-                {resource.linkLabel} →
-              </TextLink>
+              <TextLink href={resource.href}>{resource.linkLabel} →</TextLink>
             </Card>
           ))
         }
