@@ -18,7 +18,7 @@ Carinya Digital is the studio behind Carinya Parc. This monorepo holds the publi
 
 ## Getting started
 
-Requires Node `>=24` and [pnpm](https://pnpm.io) `11.23.0`.
+Requires Node `>=24` and [pnpm](https://pnpm.io) `11.25.0`.
 
 ```bash
 pnpm install

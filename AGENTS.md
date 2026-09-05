@@ -18,7 +18,7 @@ Where a package has its own `AGENTS.md`, that nested file wins for work inside i
 
 | Command | Description |
 |---------|-------------|
-| `pnpm install` | Install (pnpm `11.23.0`, Node `>=24`) |
+| `pnpm install` | Install (pnpm `11.25.0`, Node `>=24`) |
 | `pnpm dev` | Dev all packages (Turbo) |
 | `pnpm web:dev` | Site only (`turbo run dev --filter=web`) |
 | `pnpm lint` | ESLint (`--max-warnings 0` in packages that define it) |
