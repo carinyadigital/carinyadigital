@@ -11,7 +11,7 @@ Public Carinya Digital site — Astro 7 with React islands. Repo-wide commands, 
 | `pnpm --filter web preview` | `astro preview` |
 | `pnpm --filter web lint` | ESLint |
 | `pnpm --filter web check-types` | `tsc --noEmit` — **excludes `**/*.astro`** (`tsconfig.json`) |
-| `pnpm --filter web check-not-found` | After `build`: preview unknown routes and assert HTTP 404 |
+| `pnpm --filter web check-not-found` | After `build`: serve `dist/` and assert unknown routes are HTTP 404 |
 
 `@astrojs/check` is installed but not wired as a script. Root `pnpm format` does not format `.astro` files.
 
@@ -34,7 +34,7 @@ Public Carinya Digital site — Astro 7 with React islands. Repo-wide commands, 
 - `src/components/FeatureSplit.astro` is a **site-local** slot wrapper. `packages/ui` also exports `FeatureSplit`. Prefer the package when you do not need Astro named slots; do not create a third variant.
 - Interactive UI (`Button`, `InstallCommand`) is a React island; presentational UI can be imported into `.astro` without a client directive.
 - `FeatureSplit.astro` inverse tone sets `dark` on the `<section>` — same subtree-dark contract as `InverseSurface`.
-- `src/pages/404.astro` sets `Astro.response.status = 404`. Keep that assignment: a custom not-found screen served as HTTP 200 is a soft-404. After a build, `pnpm --filter web check-not-found` curls unknown routes on `astro preview` and asserts a real 404 plus `noindex`.
+- `src/pages/404.astro` sets `Astro.response.status = 404`. Keep that assignment: a custom not-found screen served as HTTP 200 is a soft-404. After a build, `pnpm --filter web check-not-found` serves `dist/` the way a static host does — missing paths get `404.html` with HTTP 404 and `noindex`.
 
 ## Boundaries
 

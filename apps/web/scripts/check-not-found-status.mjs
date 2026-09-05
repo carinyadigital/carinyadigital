@@ -1,101 +1,98 @@
 /**
- * Starts the production preview server and asserts unknown routes return
- * HTTP 404 with the custom not-found document, not a 200 that only looks
- * like an error page.
+ * Serves the production build and asserts unknown routes return HTTP 404
+ * with the custom not-found document, not a 200 that only looks like an
+ * error page. Missing files are served from 404.html — the same contract
+ * static hosts use for this site.
  */
-import { spawn } from 'node:child_process';
-import { createServer } from 'node:net';
+import { createServer } from 'node:http';
+import { access, readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
+const dist = path.join(root, 'dist');
 const host = '127.0.0.1';
 
 /**
- * @returns {Promise<number>}
+ * @param {string} filePath
  */
-function getFreePort() {
-  return new Promise((resolve, reject) => {
-    const server = createServer();
-    server.unref();
-    server.listen(0, host, () => {
-      const address = server.address();
-      if (!address || typeof address === 'string') {
-        reject(new Error('Could not allocate a TCP port'));
-        return;
-      }
-      const { port } = address;
-      server.close((error) => (error ? reject(error) : resolve(port)));
-    });
-    server.on('error', reject);
-  });
+async function exists(filePath) {
+  try {
+    await access(filePath);
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 /**
- * @param {number} port
- * @returns {Promise<import('node:child_process').ChildProcess>}
+ * @param {string} pathname
  */
-function startPreview(port) {
-  return new Promise((resolve, reject) => {
-    const child = spawn(
-      'pnpm',
-      ['exec', 'astro', 'preview', '--host', host, '--port', String(port)],
-      {
-        cwd: root,
-        stdio: ['ignore', 'pipe', 'pipe'],
-      },
-    );
+async function resolveFile(pathname) {
+  const relative = decodeURIComponent(pathname).replace(/^\/+/, '');
+  const candidates = relative
+    ? [
+        path.join(dist, relative),
+        path.join(dist, `${relative}.html`),
+        path.join(dist, relative, 'index.html'),
+      ]
+    : [path.join(dist, 'index.html')];
 
-    const output = [];
-    let settled = false;
+  for (const candidate of candidates) {
+    if (!candidate.startsWith(dist)) {
+      continue;
+    }
+    if (!(await exists(candidate))) {
+      continue;
+    }
+    const info = await stat(candidate);
+    if (info.isFile()) {
+      return candidate;
+    }
+  }
+  return undefined;
+}
 
-    const finish = (error) => {
-      if (settled) {
-        return;
-      }
-      settled = true;
-      clearTimeout(readyTimeout);
-      child.stdout?.off('data', onChunk);
-      child.stderr?.off('data', onChunk);
-      child.off('exit', onExit);
-      if (error) {
-        reject(error);
-        return;
-      }
-      resolve(child);
-    };
+/**
+ * @returns {Promise<{ origin: string, close: () => Promise<void> }>}
+ */
+async function startStaticServer() {
+  if (!(await exists(path.join(dist, '404.html')))) {
+    throw new Error('apps/web/dist/404.html is missing. Run the web build first.');
+  }
 
-    const readyTimeout = setTimeout(() => {
-      child.kill('SIGTERM');
-      finish(
-        new Error(
-          `astro preview did not become ready within 20s\n${output.join('')}`,
-        ),
-      );
-    }, 20_000);
+  const notFound = await readFile(path.join(dist, '404.html'));
 
-    const onChunk = (chunk) => {
-      const text = String(chunk);
-      output.push(text);
-      if (/localhost|127\.0\.0\.1/.test(text)) {
-        finish();
-      }
-    };
-    const onExit = (code) => {
-      finish(
-        new Error(
-          `astro preview exited before becoming ready (code ${code})\n${output.join('')}`,
-        ),
-      );
-    };
-
-    child.stdout?.on('data', onChunk);
-    child.stderr?.on('data', onChunk);
-    child.on('error', (error) => {
-      finish(error);
-    });
-    child.on('exit', onExit);
+  const server = createServer(async (request, response) => {
+    const url = new URL(request.url ?? '/', `http://${host}`);
+    const filePath = await resolveFile(url.pathname);
+    if (!filePath) {
+      response.writeHead(404, { 'Content-Type': 'text/html; charset=utf-8' });
+      response.end(notFound);
+      return;
+    }
+    const body = await readFile(filePath);
+    response.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    response.end(body);
   });
+
+  await new Promise((resolve, reject) => {
+    server.listen(0, host, resolve);
+    server.on('error', reject);
+  });
+
+  const address = server.address();
+  if (!address || typeof address === 'string') {
+    throw new Error('Could not determine the static server port');
+  }
+
+  return {
+    origin: `http://${host}:${address.port}`,
+    close: () =>
+      new Promise((resolve, reject) => {
+        server.close((error) => (error ? reject(error) : resolve()));
+      }),
+  };
 }
 
 /**
@@ -118,12 +115,10 @@ function assert(condition, message) {
   }
 }
 
-const port = await getFreePort();
-const origin = `http://${host}:${port}`;
-const preview = await startPreview(port);
+const server = await startStaticServer();
 
 try {
-  const home = await fetchPage(`${origin}/`);
+  const home = await fetchPage(`${server.origin}/`);
   assert(home.status === 200, `Expected / to return 200, got ${home.status}`);
 
   const unknownPaths = [
@@ -132,7 +127,7 @@ try {
   ];
 
   for (const pathname of unknownPaths) {
-    const page = await fetchPage(`${origin}${pathname}`);
+    const page = await fetchPage(`${server.origin}${pathname}`);
     assert(
       page.status === 404,
       `Expected ${pathname} to return HTTP 404, got ${page.status}`,
@@ -155,5 +150,5 @@ try {
     `Unknown routes return HTTP 404 with the custom not-found page (${unknownPaths.join(', ')}).`,
   );
 } finally {
-  preview.kill('SIGTERM');
+  await server.close();
 }
