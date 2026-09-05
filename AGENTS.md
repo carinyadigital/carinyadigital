@@ -35,7 +35,7 @@ CI: GitHub Actions on `main` and pull requests (`pnpm lint`, `pnpm check-types`,
 - UI: import from `@carinya-digital/ui`. Interactive primitives wrap Base UI; reuse before adding. New shared components go in `packages/ui`; one-off chrome stays in the app.
 - Apps must still import the theme CSS themselves. The UI package has the theme as a **devDependency** for typechecking only.
 - `cn()` in `packages/ui/src/lib/cn.ts` extends `tailwind-merge` for custom `text-*` and `tracking-*` tokens — use it instead of a local helper.
-- Brand, copy, and UI rules: `docs/design-system.md` (intent) and `skills/carinyadigital/SKILL.md` (agent skill). Australian English; no emoji; no exclamation points.
+- Brand, copy, and UI rules: `docs/design-system.md`. Australian English; no emoji; no exclamation points.
 
 ## Code Style
 
@@ -60,6 +60,6 @@ CI: GitHub Actions on `main` and pull requests (`pnpm lint`, `pnpm check-types`,
 ## Key Files
 
 - `docs/design-system.md` — brand, type, colour, component rules
-- `skills/carinyadigital/SKILL.md` — agent skill for CD copy and UI
+- `skills/carinyadigital/SKILL.md` — agent skill; points at `docs/`
 - `packages/carinya-theme/css/tokens.css` — token source of truth
 - `packages/ui/src/index.ts` — UI public exports
