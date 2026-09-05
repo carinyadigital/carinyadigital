@@ -1,0 +1,24 @@
+---
+interface Props {
+  vendor: 'claude' | 'cursor';
+  class?: string;
+}
+
+const { vendor, class: className } = Astro.props;
+
+const mark = vendor === 'claude' ? 'cl' : 'cu';
+const label = vendor === 'claude' ? 'Claude' : 'Cursor';
+---
+
+<div
+  class:list={[
+    'flex size-11 items-center justify-center rounded-sm border border-border-strong bg-background',
+    className,
+  ]}
+  aria-label={`${label} mark`}
+  role="img"
+>
+  <span class="font-heading text-body font-semibold leading-none text-foreground" aria-hidden="true">
+    {mark}
+  </span>
+</div>

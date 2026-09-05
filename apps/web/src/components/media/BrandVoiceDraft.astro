@@ -1,0 +1,41 @@
+---
+import ProductFrame from './ProductFrame.astro';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<ProductFrame
+  filename="brand/brand-voice.md"
+  label="Draft brand voice guide generated from existing copy"
+  status="Draft"
+  class={className}
+>
+  <div class="flex h-full flex-col gap-4">
+    <div>
+      <p class="font-mono text-label uppercase tracking-label text-secondary">
+        /brand-creative:brand-voice write
+      </p>
+      <p class="mt-2 font-heading text-[22px] leading-snug text-foreground">
+        Brand voice — working farm
+      </p>
+    </div>
+    <dl class="grid grid-cols-2 gap-px bg-border text-[13px] leading-snug">
+      <div class="bg-card p-3">
+        <dt class="font-mono text-label uppercase tracking-label text-faint-foreground">We are</dt>
+        <dd class="mt-1 text-foreground">Plain-spoken, grounded, unhurried</dd>
+      </div>
+      <div class="bg-card p-3">
+        <dt class="font-mono text-label uppercase tracking-label text-faint-foreground">We are not</dt>
+        <dd class="mt-1 text-foreground">A lifestyle label or a SaaS pitch</dd>
+      </div>
+    </dl>
+    <p class="text-small leading-snug text-muted-foreground">
+      Other content and product skills consume this guide after you review it. Nothing publishes from
+      this file on its own.
+    </p>
+  </div>
+</ProductFrame>

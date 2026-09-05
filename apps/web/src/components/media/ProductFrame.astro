@@ -1,0 +1,32 @@
+---
+import { Tag } from '@carinya-digital/ui';
+
+interface Props {
+  filename: string;
+  label: string;
+  status?: string;
+  class?: string;
+}
+
+const { filename, label, status, class: className } = Astro.props;
+---
+
+<figure
+  aria-label={label}
+  class:list={[
+    'flex h-full min-h-[340px] flex-col overflow-hidden rounded-sm border border-border-strong bg-card',
+    className,
+  ]}
+>
+  <figcaption
+    class="flex items-center justify-between gap-3 border-b border-border px-4 py-2.5"
+  >
+    <span class="font-mono text-label uppercase tracking-label text-faint-foreground">
+      {filename}
+    </span>
+    {status ? <Tag>{status}</Tag> : null}
+  </figcaption>
+  <div class="min-h-0 flex-1 overflow-y-auto p-5">
+    <slot />
+  </div>
+</figure>

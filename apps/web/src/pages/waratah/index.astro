@@ -5,7 +5,6 @@ import {
   Card,
   Container,
   FaqList,
-  ImageSlot,
   StatBand,
   Subheading,
   Tag,
@@ -15,6 +14,10 @@ import {
 import CallToAction from '@/components/CallToAction.astro';
 import FeatureSplit from '@/components/FeatureSplit.astro';
 import Hero from '@/components/Hero.astro';
+import DirectoryDiagram from '@/components/media/DirectoryDiagram.astro';
+import RosterDiagram from '@/components/media/RosterDiagram.astro';
+import VendorMark from '@/components/media/VendorMark.astro';
+import WaratahOverview from '@/components/media/WaratahOverview.astro';
 import Layout from '@/layouts/Layout.astro';
 import { waratah } from '@/content/site';
 ---
@@ -38,13 +41,13 @@ import { waratah } from '@/content/site';
         Read the docs →
       </a>
     </div>
-    <ImageSlot slot="media" label="Product screenshot or diagram" className="h-[380px] w-full" />
+    <WaratahOverview slot="media" class="h-[380px] w-full" />
   </Hero>
 
   <StatBand items={[...waratah.stats]} />
 
   <FeatureSplit eyebrow="The model" headline="an agent is a directory">
-    <ImageSlot slot="media" label="Directory-structure diagram" className="h-[340px] w-full" />
+    <DirectoryDiagram slot="media" class="h-[340px] w-full" />
     <Text>
       The agent directory is authoritative. Conventional subdirectories —{' '}
       <code class="font-mono text-small text-primary">connectors/</code>,{' '}
@@ -56,7 +59,7 @@ import { waratah } from '@/content/site';
   </FeatureSplit>
 
   <FeatureSplit headline="designed for coordinated agents" mediaPosition="end" tone="card">
-    <ImageSlot slot="media" label="Multi-agent roster diagram" className="h-[340px] w-full" />
+    <RosterDiagram slot="media" class="h-[340px] w-full" />
     <Text className="mb-5">
       A coordinator names a version-pinned roster; every entry needs a matching directory under{' '}
       <code class="font-mono text-small">subagents/</code> — checked in both directions.
@@ -84,7 +87,7 @@ import { waratah } from '@/content/site';
         {
           waratah.providers.map((provider) => (
             <Card className="flex flex-col gap-3 rounded-none p-6">
-              <ImageSlot label="Logo" className="size-11" />
+              <VendorMark vendor={provider.name} />
               <div class="flex items-center justify-between gap-3">
                 <p class="font-mono text-body text-foreground">{provider.name}</p>
                 <Tag>{provider.status}</Tag>

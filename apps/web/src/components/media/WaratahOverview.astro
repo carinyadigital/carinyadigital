@@ -1,0 +1,54 @@
+---
+import ProductFrame from './ProductFrame.astro';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<ProductFrame
+  filename="waratah build"
+  label="waratah compiles one agent directory into reviewable Claude and Cursor artifacts"
+  status="Dry-run"
+  class={className}
+>
+  <div class="flex h-full flex-col justify-between gap-5">
+    <div class="grid grid-cols-1 items-center gap-3 sm:grid-cols-[1fr_auto_1fr]">
+      <div class="rounded-sm border border-border bg-background p-3.5">
+        <p class="mb-2.5 font-mono text-label uppercase tracking-label text-secondary">agent/</p>
+        <ul class="space-y-1 font-mono text-[13px] leading-snug text-muted-foreground">
+          <li>instructions.md</li>
+          <li>connectors/</li>
+          <li>schedules/</li>
+          <li>skills/</li>
+          <li>subagents/</li>
+        </ul>
+      </div>
+      <p
+        class="hidden font-mono text-label uppercase tracking-label text-faint-foreground sm:block"
+        aria-hidden="true"
+      >
+        →
+      </p>
+      <div class="flex flex-col gap-2">
+        <div class="rounded-sm border border-border bg-background px-3.5 py-3">
+          <p class="font-mono text-small text-foreground">claude</p>
+          <p class="mt-1 text-[13px] leading-snug text-muted-foreground">
+            agent.json, skills, one deploy per schedule
+          </p>
+        </div>
+        <div class="rounded-sm border border-border bg-background px-3.5 py-3">
+          <p class="font-mono text-small text-foreground">cursor</p>
+          <p class="mt-1 text-[13px] leading-snug text-muted-foreground">
+            agent.json rendered — deploy waits
+          </p>
+        </div>
+      </div>
+    </div>
+    <p class="font-mono text-label uppercase tracking-label text-faint-foreground">
+      Directory is source of truth · artifacts are diffs
+    </p>
+  </div>
+</ProductFrame>

@@ -1,0 +1,122 @@
+---
+import ProductFrame from './ProductFrame.astro';
+
+interface Props {
+  variant: 'hero' | 'sources' | 'generated';
+  class?: string;
+}
+
+const { variant, class: className } = Astro.props;
+
+const copy = {
+  hero: {
+    filename: 'file-note.md',
+    label: 'Drafted file note from a consented meeting transcript',
+    heading: 'File note — meeting 4 Sep',
+  },
+  sources: {
+    filename: 'file-note.md',
+    label: 'Draft file note with source tags on facts and a review flag on a recommendation request',
+    heading: 'Source tags on the record',
+  },
+  generated: {
+    filename: 'file-note.md',
+    label: 'Generated file note with audit log and approver still to be decided',
+    heading: 'Generated file note',
+  },
+}[variant];
+---
+
+<ProductFrame
+  filename={copy.filename}
+  label={copy.label}
+  status="Draft"
+  class={className}
+>
+  <div class="flex h-full flex-col gap-3.5">
+    <p class="font-mono text-label uppercase tracking-label text-secondary">
+      Draft for licensed human review
+    </p>
+    <p class="font-heading text-[22px] leading-snug text-foreground">{copy.heading}</p>
+
+    {
+      variant === 'hero' && (
+        <dl class="space-y-2.5 text-small leading-snug">
+          <div class="flex justify-between gap-3">
+            <dt class="text-muted-foreground">Matter</dt>
+            <dd class="font-mono text-[13px] text-foreground">PARC-104</dd>
+          </div>
+          <div class="flex justify-between gap-3">
+            <dt class="text-muted-foreground">Purpose</dt>
+            <dd class="text-right text-foreground">Annual review · super</dd>
+          </div>
+          <div>
+            <dt class="text-muted-foreground">Client statements</dt>
+            <dd class="mt-1 text-foreground">
+              Wants lower fees and simpler paperwork. Asked which super fund is best.
+            </dd>
+          </div>
+          <div>
+            <dt class="text-muted-foreground">Information provided</dt>
+            <dd class="mt-1 text-foreground">
+              No product named. Fact-find to be completed before any recommendation.
+            </dd>
+          </div>
+        </dl>
+      )
+    }
+
+    {
+      variant === 'sources' && (
+        <dl class="space-y-3 text-small leading-snug">
+          <div>
+            <dt class="text-muted-foreground">Client statements</dt>
+            <dd class="mt-1 text-foreground">
+              Wants lower fees and simpler paperwork.{' '}
+              <span class="font-mono text-[12px] text-secondary">[sourced: transcript 04:12]</span>
+            </dd>
+          </div>
+          <div>
+            <dt class="text-muted-foreground">Fees discussed</dt>
+            <dd class="mt-1 text-foreground">
+              Current platform fee 0.72% p.a.{' '}
+              <span class="font-mono text-[12px] text-secondary">[sourced: APL extract 2026-08]</span>
+            </dd>
+          </div>
+          <div>
+            <dt class="text-muted-foreground">Advice-shaped moment</dt>
+            <dd class="mt-1 text-foreground">
+              Client asked for a recommendation — not given.{' '}
+              <span class="font-mono text-[12px] text-secondary">[review]</span>
+            </dd>
+          </div>
+        </dl>
+      )
+    }
+
+    {
+      variant === 'generated' && (
+        <dl class="space-y-2.5 text-small leading-snug">
+          <div>
+            <dt class="text-muted-foreground">Consent</dt>
+            <dd class="mt-1 text-foreground">Recording consented · 22-minute transcript</dd>
+          </div>
+          <div>
+            <dt class="text-muted-foreground">Incomplete information</dt>
+            <dd class="mt-1 text-foreground">
+              Fact-find not complete. No product comparison in this note.
+            </dd>
+          </div>
+          <div class="border-t border-border pt-2.5">
+            <dt class="font-mono text-label uppercase tracking-label text-faint-foreground">
+              Audit log
+            </dt>
+            <dd class="mt-1 font-mono text-[13px] text-foreground">
+              inputs: transcript · skill: file-note · approver: TBD
+            </dd>
+          </div>
+        </dl>
+      )
+    }
+  </div>
+</ProductFrame>
