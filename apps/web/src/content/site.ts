@@ -9,11 +9,19 @@ export const site = {
 } as const;
 
 export const nav = {
-  resources: { href: '/agent-resources', label: 'Agent Resources' },
-  github: { href: site.github, label: 'GitHub →' },
+  items: [
+    { href: '/claude-cowork', label: 'Claude Cowork' },
+    { href: '/waratah', label: 'Waratah' },
+    { href: '/agent-resources', label: 'Agent Resources' },
+  ],
+  cta: { href: 'mailto:hello@carinyadigital.com', label: 'Contact us →' },
 } as const;
 
 export const footer = [
+  {
+    heading: 'Services',
+    links: [{ label: 'Claude Cowork Setup', href: '/claude-cowork' }],
+  },
   {
     heading: 'Agent Harness',
     links: [{ label: 'Waratah', href: '/waratah' }],
@@ -24,10 +32,6 @@ export const footer = [
       { label: 'Digital Agency', href: '/agent-plugins' },
       { label: 'Financial Planners', href: '/financial-planners' },
     ],
-  },
-  {
-    heading: 'Services',
-    links: [{ label: 'Claude Cowork Setup', href: '/claude-cowork' }],
   },
   {
     heading: 'Learn',
@@ -61,7 +65,7 @@ export const home = {
   ],
   cowork: {
     eyebrow: 'New',
-    headline: 'set up claude cowork for your business',
+    headline: 'claude cowork for your business',
     description:
       'We configure Claude Cowork around your tools, your files, and the recurring work that eats a day every week — with a trust spine, security boundaries, and your regulatory obligations built in from day one.',
     href: '/claude-cowork',

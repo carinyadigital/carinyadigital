@@ -9,7 +9,7 @@ const menuLinkClass = cn(
   'text-h3 font-heading normal-case tracking-tight',
 );
 
-export function MobileNav({ githubHref = nav.github.href }: { githubHref?: string }) {
+export function MobileNav() {
   return (
     <div className="lg:hidden">
       <Dialog.Root>
@@ -47,17 +47,20 @@ export function MobileNav({ githubHref = nav.github.href }: { githubHref?: strin
             </div>
             <Dialog.Title className="sr-only">Menu</Dialog.Title>
             <nav className="mt-10 flex flex-col gap-6">
+              {nav.items.map((item) => (
+                <Dialog.Close
+                  key={item.href}
+                  nativeButton={false}
+                  render={<a href={item.href} className={menuLinkClass} />}
+                >
+                  {item.label}
+                </Dialog.Close>
+              ))}
               <Dialog.Close
                 nativeButton={false}
-                render={<a href={nav.resources.href} className={menuLinkClass} />}
+                render={<a href={nav.cta.href} className={menuLinkClass} />}
               >
-                {nav.resources.label}
-              </Dialog.Close>
-              <Dialog.Close
-                nativeButton={false}
-                render={<a href={githubHref} className={menuLinkClass} />}
-              >
-                GitHub
+                {nav.cta.label}
               </Dialog.Close>
             </nav>
           </Dialog.Popup>
