@@ -1,0 +1,11 @@
+{
+  "name": "Carinya Digital",
+  "install": "corepack enable && pnpm install --frozen-lockfile",
+  "terminals": [
+    {
+      "name": "web-dev",
+      "command": "pnpm --filter web dev --host"
+    }
+  ],
+  "ports": [{ "name": "web", "port": 4321 }]
+}
