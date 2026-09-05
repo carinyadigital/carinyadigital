@@ -8,12 +8,31 @@ import '@/styles/global.css';
 interface Props {
   title?: string;
   description?: string;
+  /**
+   * Robots directive for this document. Error pages pass noindex so a
+   * host that serves the not-found HTML with HTTP 200 still stays out of
+   * search indexes.
+   */
+  robots?: string;
+  /**
+   * Canonical URL, or false to omit the tag. The not-found document is
+   * reused for many missing paths, so a single canonical would point
+   * crawlers at a URL that is not a real page.
+   */
+  canonical?: string | false;
 }
 
 const {
   title = site.name,
   description = site.description,
+  robots,
+  canonical,
 } = Astro.props;
+
+const canonicalHref =
+  canonical === false
+    ? undefined
+    : (canonical ?? new URL(Astro.url.pathname, site.url).href);
 
 const pageTitle = title === site.name ? title : `${title} · ${site.name}`;
 
@@ -37,6 +56,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       />
     )}
     <meta name="description" content={description} />
+    {robots ? <meta name="robots" content={robots} /> : null}
     <meta name="theme-color" content="#5C6A4A" />
     <link rel="icon" href="/favicons/favicon.ico" sizes="32x32" />
     <link rel="icon" href="/favicons/favicon.svg" type="image/svg+xml" />
@@ -45,7 +65,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <link rel="apple-touch-icon" href="/favicons/apple-touch-icon.png" />
     <link rel="manifest" href="/favicons/site.webmanifest" />
     <meta name="generator" content={Astro.generator} />
-    <link rel="canonical" href={new URL(Astro.url.pathname, site.url).href} />
+    {canonicalHref ? <link rel="canonical" href={canonicalHref} /> : null}
     <title>{pageTitle}</title>
   </head>
   <body class="flex min-h-dvh flex-col bg-background font-sans text-foreground">
