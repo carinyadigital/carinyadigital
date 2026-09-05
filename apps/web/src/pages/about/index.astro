@@ -1,0 +1,12 @@
+---
+import { Eyebrow } from '@carinya-digital/ui';
+import Hero from '@/components/Hero.astro';
+import Layout from '@/layouts/Layout.astro';
+import { site } from '@/content/site';
+---
+
+<Layout title="About" description={site.description}>
+  <Hero headline="design, build, and run" subheadline={site.description}>
+    <Eyebrow slot="eyebrow">About</Eyebrow>
+  </Hero>
+</Layout>

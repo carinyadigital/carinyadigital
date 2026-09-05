@@ -16,7 +16,7 @@ Public Carinya Digital site — Astro 7 with React islands. Repo-wide commands, 
 
 ## Architecture
 
-- Routes: `src/pages/` (file-based). Today: `/`, `/agent-resources`, `/financial-planners`, `/waratah`, `404`.
+- Routes: `src/pages/` (file-based). Today: `/`, `/agent-resources`, `/agent-plugins`, `/financial-planners`, `/waratah`, `404`.
 - Marketing copy and nav: `src/content/site.ts` — do not scatter page copy into components.
 - Chrome: `src/layouts/Layout.astro` (`lang="en-AU"`), `src/components/Navbar.astro` / `Footer.astro`. `MobileNav.tsx` is the only site-local client island.
 - Alias `@/*` → `./src/*` (Vite + tsconfig).

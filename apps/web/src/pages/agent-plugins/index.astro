@@ -1,0 +1,127 @@
+---
+import {
+  BorderGrid,
+  buttonVariants,
+  Card,
+  Chip,
+  Container,
+  Eyebrow,
+  FaqList,
+  ImageSlot,
+  InstallCommand,
+  InverseSurface,
+  StatBand,
+  Subheading,
+  Tag,
+  Text,
+  TextLink,
+} from '@carinya-digital/ui';
+import CallToAction from '@/components/CallToAction.astro';
+import FeatureSplit from '@/components/FeatureSplit.astro';
+import Hero from '@/components/Hero.astro';
+import Layout from '@/layouts/Layout.astro';
+import { agentPlugins } from '@/content/site';
+---
+
+<Layout
+  title="Agent Plugins"
+  description="Plugins for brand, content, product, design, search, and engineering. Install them in Claude Code, Claude Cowork, or Cursor. Every output is a draft for you to review."
+  githubHref={agentPlugins.github}
+>
+  <Hero
+    headline="agency work, as plugins"
+    subheadline="Brand, content, product, design, search, and engineering — delivered through Claude Code, Claude Cowork, or Cursor. Every output is a draft for you to review."
+  >
+    <Tag slot="eyebrow">Plugin marketplace</Tag>
+    <div class="flex flex-wrap items-center gap-3.5">
+      <Chip>Claude Code</Chip>
+      <Chip>Claude Cowork</Chip>
+      <Chip>Cursor</Chip>
+    </div>
+    <ImageSlot
+      slot="media"
+      label="Screenshot of a practice plugin in Claude Code or Cursor"
+      className="h-[380px] w-full"
+    />
+  </Hero>
+
+  <StatBand items={[...agentPlugins.stats]} />
+
+  <InverseSurface>
+    <Container className="flex flex-col gap-5">
+      <Eyebrow tone="sage">Paste this into your agent</Eyebrow>
+      <InstallCommand client:load snippet={agentPlugins.install} />
+      <Text>
+        Run in Claude Code or Claude Cowork, then restart and run{' '}
+        <code class="font-mono text-small text-accent-tint">/brand-creative:setup</code>. In Cursor,
+        add the repo from Settings → Plugins. Pick the practices that match the work in front of you.
+      </Text>
+    </Container>
+  </InverseSurface>
+
+  <FeatureSplit eyebrow="The review gate" headline="every output is a draft, never a finished deliverable">
+    <ImageSlot slot="media" label="Screenshot of a draft artefact awaiting review" className="h-[340px] w-full" />
+    <Text>
+      Skills draft work products. You verify accuracy, brand fit, accessibility, security, and
+      compliance before anything ships. Nothing here is a substitute for qualified professional
+      judgment.
+    </Text>
+  </FeatureSplit>
+
+  <section class="bg-card py-24">
+    <Container>
+      <Subheading>eleven practices, one marketplace</Subheading>
+      <Text className="mt-3 mb-12 max-w-[64ch]">
+        Install the plugin that matches the work in front of you. The first practice setup writes
+        the shared instance profile every other plugin reuses.
+      </Text>
+      <BorderGrid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          agentPlugins.plugins.map((plugin) => (
+            <Card className="flex flex-col gap-2.5 rounded-none bg-background p-6">
+              <p class="font-mono text-body text-primary">{plugin.name}</p>
+              <p class="flex-1 text-small leading-[1.55] text-muted-foreground">{plugin.bestFor}</p>
+              <p class="font-mono text-[13px] text-faint-foreground">{plugin.command}</p>
+            </Card>
+          ))
+        }
+      </BorderGrid>
+    </Container>
+  </section>
+
+  <FeatureSplit
+    eyebrow="Worked example"
+    headline="brand voice from the copy you already have"
+    mediaPosition="end"
+  >
+    <ImageSlot slot="media" label="Screenshot of a drafted brand voice guide" className="h-[340px] w-full" />
+    <Text>
+      You have a bound instance and some existing copy — website, social, or a voice interview. Run{' '}
+      <code class="font-mono text-small text-primary">/brand-creative:brand-voice write</code>. You
+      get a voice guide other content and product skills consume, ready for your review before
+      anything publishes.
+    </Text>
+  </FeatureSplit>
+
+  <CallToAction tone="inverse" headline="install brand-creative and see your first draft">
+    <Text>
+      Two minutes with <code class="font-mono text-small text-accent-tint">--quick</code> setup, ten
+      to twenty for the full profile.
+    </Text>
+    <a class={buttonVariants({ variant: 'primary' })} href={agentPlugins.github}>
+      Get started on GitHub
+    </a>
+  </CallToAction>
+
+  <section class="border-t border-border py-24">
+    <Container>
+      <FaqList items={agentPlugins.faqs.map((faq) => ({ question: faq.q, answer: faq.a }))} />
+    </Container>
+  </section>
+
+  <section class="border-t border-border py-8">
+    <Container>
+      <TextLink variant="body" href="/agent-resources">← All agent resources</TextLink>
+    </Container>
+  </section>
+</Layout>

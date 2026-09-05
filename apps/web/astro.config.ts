@@ -10,6 +10,7 @@ export default defineConfig({
     '/resources': '/agent-resources',
     '/resources/financial-planners': '/financial-planners',
     '/resources/waratah': '/waratah',
+    '/resources/agent-plugins': '/agent-plugins',
   },
   integrations: [
     sentry({

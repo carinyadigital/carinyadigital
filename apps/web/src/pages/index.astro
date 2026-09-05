@@ -1,6 +1,5 @@
 ---
 import {
-  Announcement,
   BorderGrid,
   buttonVariants,
   Card,
@@ -10,11 +9,11 @@ import {
   Eyebrow,
   FeatureGrid,
   InverseSurface,
-  StatBand,
   Subheading,
   Tag,
   Text,
   TextLink,
+  cn,
 } from '@carinya-digital/ui';
 import CallToAction from '@/components/CallToAction.astro';
 import Hero from '@/components/Hero.astro';
@@ -28,12 +27,7 @@ import { home, homeResources } from '@/content/site';
     headlineClassName="max-w-[20ch]"
     subheadline="Carinya Digital designs, builds, and runs AI agents that handle the recurring work inside small and medium businesses — drafting, filing, checking, chasing — so your team spends its time on the work only a person can do."
   >
-    <div slot="eyebrow" class="flex flex-col items-start gap-4">
-      <Announcement href={home.announcement.href} cta={home.announcement.cta}>
-        {home.announcement.text}
-      </Announcement>
-      <Eyebrow>Proven agent resources · Suitable for any business</Eyebrow>
-    </div>
+    <Eyebrow slot="eyebrow">Proven agent resources · Suitable for any business</Eyebrow>
   </Hero>
 
   <InverseSurface>
@@ -65,12 +59,6 @@ import { home, homeResources } from '@/content/site';
     </Container>
   </section>
 
-  <StatBand
-    headline={home.stats.headline}
-    description={home.stats.description}
-    items={[...home.stats.items]}
-  />
-
   <section class="py-24">
     <Container>
       <div class="mb-16 flex flex-wrap items-baseline justify-between gap-5">
@@ -79,10 +67,15 @@ import { home, homeResources } from '@/content/site';
           Every agent resource is free to inspect, fork, and run yourself — no black box, no lock-in.
         </Text>
       </div>
-      <BorderGrid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      <BorderGrid className="grid-cols-1 sm:grid-cols-2">
         {
           homeResources.map((resource) => (
-            <Card className="flex flex-col gap-3.5 rounded-none">
+            <Card
+              className={cn(
+                'flex flex-col gap-3.5 rounded-none',
+                'featured' in resource && resource.featured && 'sm:col-span-2',
+              )}
+            >
               <Tag>{resource.tag}</Tag>
               <CardTitle>{resource.title}</CardTitle>
               <CardDescription className="flex-1">{resource.description}</CardDescription>

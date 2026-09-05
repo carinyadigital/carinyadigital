@@ -1,33 +1,35 @@
 ---
 import { Container, TextLink } from '@carinya-digital/ui';
-import { nav, site } from '@/content/site';
+import { footer, site } from '@/content/site';
 ---
 
 <footer class="border-t border-border pt-16">
   <Container className="flex flex-col gap-12 pb-8">
-    <nav class="grid grid-cols-2 gap-8 text-small sm:grid-cols-3">
-      <div>
-        <h2 class="font-mono text-label uppercase tracking-label text-faint-foreground">Resources</h2>
-        <ul class="mt-3 flex flex-col gap-2">
-          <li>
-            <TextLink variant="muted" href={nav.resources.href}>Agent Resources</TextLink>
-          </li>
-          <li>
-            <TextLink variant="muted" href="/financial-planners">Financial planners</TextLink>
-          </li>
-          <li>
-            <TextLink variant="muted" href="/waratah">Waratah</TextLink>
-          </li>
-        </ul>
-      </div>
-      <div>
-        <h2 class="font-mono text-label uppercase tracking-label text-faint-foreground">Company</h2>
-        <ul class="mt-3 flex flex-col gap-2">
-          <li>
-            <TextLink variant="muted" href={site.github}>GitHub</TextLink>
-          </li>
-        </ul>
-      </div>
+    <nav class="grid grid-cols-2 gap-8 text-small lg:grid-cols-4" aria-label="Footer">
+      {
+        footer.map((column) => (
+          <div>
+            <h2 class="font-mono text-label uppercase tracking-label text-faint-foreground">
+              {column.heading}
+            </h2>
+            <ul class="mt-3 flex flex-col gap-2">
+              {column.links.map((link) => (
+                <li>
+                  {'href' in link ? (
+                    <TextLink variant="muted" href={link.href}>
+                      {link.label}
+                    </TextLink>
+                  ) : (
+                    <span class="font-mono text-label uppercase tracking-label text-faint-foreground">
+                      {link.label}
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
     </nav>
     <div class="flex flex-wrap items-center justify-between gap-3 border-t border-border pt-5">
       <p class="font-mono text-label uppercase tracking-label text-faint-foreground">
