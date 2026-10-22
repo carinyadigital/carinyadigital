@@ -86,7 +86,7 @@ import { home } from '@/content/site';
         <Subheading>{home.resources.headline}</Subheading>
         <Text className="max-w-[40ch]">{home.resources.description}</Text>
       </div>
-      <BorderGrid className="grid-cols-1 sm:grid-cols-2">
+      <BorderGrid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {
           home.resources.items.map((resource) => (
             <Card className="flex flex-col gap-3.5 rounded-none">

@@ -31,6 +31,7 @@ export const footer = [
     links: [
       { label: 'Digital Agency', href: '/agent-plugins' },
       { label: 'Financial Planners', href: '/financial-planners' },
+      { label: 'Change Practice', href: '/change-practice' },
     ],
   },
   {
@@ -106,6 +107,14 @@ export const home = {
         href: '/financial-planners',
         linkLabel: 'View resource',
       },
+      {
+        tag: 'Plugin marketplace',
+        title: 'change practice',
+        description:
+          'A practice plugin for change managers — stakeholder analysis, impact, comms, readiness, and adoption — for Claude Cowork and ChatGPT Work.',
+        href: '/change-practice',
+        linkLabel: 'View resource',
+      },
     ],
   },
 } as const;
@@ -130,6 +139,16 @@ export const resources = [
       'Plugins for AU advisers, mortgage brokers, and compliance teams — meeting prep, file notes, SOA/ROA/CAR and BID scaffolds, compliance checklists. Every output is a draft for licensed human review.',
     href: '/financial-planners',
     githubHref: 'https://github.com/carinyadigital/financial-planners',
+  },
+  {
+    slug: 'change-practice',
+    tag: 'Plugin marketplace',
+    status: 'Available',
+    title: 'change practice',
+    description:
+      'A practice plugin for change managers and organisational change practitioners — stakeholder analysis, impact, comms, readiness, and adoption. Install it in Claude Cowork or ChatGPT Work. Every output is a draft for you to review.',
+    href: '/change-practice',
+    githubHref: 'https://github.com/carinyadigital/change-practice',
   },
   {
     slug: 'waratah',
@@ -310,6 +329,62 @@ export const financialPlanners = {
     {
       q: 'Are the outputs finished documents?',
       a: 'Every output is a draft, never a decision. Source tags sit on product facts, rates, and fees. Incomplete-information warnings are called out at the top.',
+    },
+  ],
+} as const;
+
+export const changePractice = {
+  github: 'https://github.com/carinyadigital/change-practice',
+  install: `/plugin marketplace add carinyadigital/change-practice
+/plugin install change-practice@change-practice`,
+  stats: [
+    { value: '5', label: 'persona agents over one shared change record' },
+    { value: '27', label: 'skills across Prepare, Manage, and Sustain' },
+    { value: '0', label: 'messages sent to employees without a human' },
+  ],
+  personas: [
+    {
+      name: 'change-lead',
+      bestFor: 'Change definition, impact, risk, strategy, go-live, and handover',
+      command: '/change-practice:understand-change',
+    },
+    {
+      name: 'stakeholder-sponsor-coach',
+      bestFor: 'Stakeholders, sponsors, champion network, and resistance',
+      command: '/change-practice:stakeholder-analysis',
+    },
+    {
+      name: 'comms-specialist',
+      bestFor: 'Communications plan, message drafts, and reinforcement',
+      command: '/change-practice:communications-plan',
+    },
+    {
+      name: 'training-designer',
+      bestFor: 'Training needs analysis, plan, and job aids',
+      command: '/change-practice:training-needs-analysis',
+    },
+    {
+      name: 'readiness-adoption-analyst',
+      bestFor: 'Measurement, business readiness, go/no-go, and adoption',
+      command: '/change-practice:measurement-plan',
+    },
+  ],
+  faqs: [
+    {
+      q: 'Who is this for?',
+      a: 'Change managers and organisational change practitioners helping groups of people adopt a new system, process, structure, or policy. You do not need an engineering team to start.',
+    },
+    {
+      q: 'Is this IT change control?',
+      a: 'No. It covers people change only. It does not draft change requests, CAB papers, or release approvals.',
+    },
+    {
+      q: 'Does it send messages to staff?',
+      a: 'No. Comms are saved to the change record as drafts. Sending, posting, and calendar invites stay with a person. People data is recorded as groups and roles, not named individuals, unless you ask.',
+    },
+    {
+      q: 'Does this work in ChatGPT?',
+      a: 'Yes. A workspace admin publishes Change Practice from ChatGPT Plugins, then you add it in ChatGPT Work. Claude Cowork installs from the GitHub marketplace.',
     },
   ],
 } as const;

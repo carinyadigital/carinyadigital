@@ -1,0 +1,123 @@
+---
+import ProductFrame from './ProductFrame.astro';
+
+interface Props {
+  variant: 'hero' | 'sources' | 'generated';
+  class?: string;
+}
+
+const { variant, class: className } = Astro.props;
+
+const copy = {
+  hero: {
+    filename: 'docs/change/scope.md',
+    label: 'Draft change definition for a rostering change, awaiting review',
+    heading: 'Rostering change',
+  },
+  sources: {
+    filename: 'docs/change/comms/2026-10-22-roster-update.md',
+    label: 'Draft staff message saved to the change record and not sent',
+    heading: 'Staff update — not sent',
+  },
+  generated: {
+    filename: 'docs/change/scope.md',
+    label: 'Change definition drafted from project notes, with unknowns marked for confirmation',
+    heading: 'What is changing',
+  },
+}[variant];
+---
+
+<ProductFrame
+  filename={copy.filename}
+  label={copy.label}
+  status="Draft"
+  class={className}
+>
+  <div class="flex h-full flex-col gap-3.5">
+    <p class="font-mono text-label uppercase tracking-label text-secondary">
+      Draft for human review
+    </p>
+    <p class="font-heading text-[22px] leading-snug text-foreground">{copy.heading}</p>
+
+    {
+      variant === 'hero' && (
+        <dl class="space-y-2.5 text-small leading-snug">
+          <div class="flex justify-between gap-3">
+            <dt class="text-muted-foreground">Initiative</dt>
+            <dd class="font-mono text-[13px] text-foreground">Warehouse rostering</dd>
+          </div>
+          <div class="flex justify-between gap-3">
+            <dt class="text-muted-foreground">Phase</dt>
+            <dd class="text-foreground">Prepare</dd>
+          </div>
+          <div>
+            <dt class="text-muted-foreground">Groups affected</dt>
+            <dd class="mt-1 text-foreground">Rostered warehouse staff and supervisors</dd>
+          </div>
+          <div>
+            <dt class="text-muted-foreground">What changes</dt>
+            <dd class="mt-1 text-foreground">
+              Paper rostering moves to a shared system from March.
+            </dd>
+          </div>
+        </dl>
+      )
+    }
+
+    {
+      variant === 'sources' && (
+        <dl class="space-y-3 text-small leading-snug">
+          <div>
+            <dt class="text-muted-foreground">Audience</dt>
+            <dd class="mt-1 text-foreground">
+              Rostered warehouse staff{' '}
+              <span class="font-mono text-[12px] text-secondary">[group, not named people]</span>
+            </dd>
+          </div>
+          <div>
+            <dt class="text-muted-foreground">Message</dt>
+            <dd class="mt-1 text-foreground">
+              The new rostering system starts in March. Supervisors will walk through it in the
+              week before.
+            </dd>
+          </div>
+          <div>
+            <dt class="text-muted-foreground">Send</dt>
+            <dd class="mt-1 text-foreground">
+              Saved to the record.{' '}
+              <span class="font-mono text-[12px] text-secondary">[not sent]</span>
+            </dd>
+          </div>
+        </dl>
+      )
+    }
+
+    {
+      variant === 'generated' && (
+        <dl class="space-y-2.5 text-small leading-snug">
+          <div>
+            <dt class="text-muted-foreground">Why now</dt>
+            <dd class="mt-1 text-foreground">Current rostering is paper-based and error-prone.</dd>
+          </div>
+          <div>
+            <dt class="text-muted-foreground">Unknown</dt>
+            <dd class="mt-1 text-foreground">
+              Training window still open.{' '}
+              <span class="font-mono text-[12px] text-secondary">
+                [ASSUMPTION — confirm with operations]
+              </span>
+            </dd>
+          </div>
+          <div class="border-t border-border pt-2.5">
+            <dt class="font-mono text-label uppercase tracking-label text-faint-foreground">
+              Next skill
+            </dt>
+            <dd class="mt-1 font-mono text-[13px] text-foreground">
+              /change-practice:stakeholder-analysis
+            </dd>
+          </div>
+        </dl>
+      )
+    }
+  </div>
+</ProductFrame>

@@ -1,0 +1,124 @@
+---
+import {
+  BorderGrid,
+  buttonVariants,
+  Card,
+  Chip,
+  Container,
+  Eyebrow,
+  FaqList,
+  InstallCommand,
+  InverseSurface,
+  StatBand,
+  Subheading,
+  Tag,
+  Text,
+  TextLink,
+} from '@carinya-digital/ui';
+import CallToAction from '@/components/CallToAction.astro';
+import FeatureSplit from '@/components/FeatureSplit.astro';
+import Hero from '@/components/Hero.astro';
+import ChangeRecord from '@/components/media/ChangeRecord.astro';
+import Layout from '@/layouts/Layout.astro';
+import { changePractice } from '@/content/site';
+---
+
+<Layout
+  title="Change Practice"
+  description="A practice plugin for change managers — stakeholder analysis, impact, comms, readiness, and adoption — in Claude Cowork or ChatGPT Work. Every output is a draft for you to review."
+>
+  <Hero
+    headline="people change, as a practice plugin"
+    subheadline="Stakeholder analysis, impact, comms, readiness, and adoption for change managers — in Claude Cowork or ChatGPT Work. One shared change record. Every output is a draft for you to review."
+  >
+    <Tag slot="eyebrow">Plugin marketplace</Tag>
+    <div class="flex flex-wrap items-center gap-3.5">
+      <Chip>Claude Cowork</Chip>
+      <Chip>ChatGPT Work</Chip>
+    </div>
+    <ChangeRecord slot="media" variant="hero" class="h-[380px] w-full" />
+  </Hero>
+
+  <StatBand items={[...changePractice.stats]} />
+
+  <InverseSurface>
+    <Container className="flex flex-col gap-5">
+      <Eyebrow tone="sage">Paste this into your agent</Eyebrow>
+      <InstallCommand client:load snippet={changePractice.install} />
+      <Text>
+        Run in Claude Cowork, then restart and run{' '}
+        <code class="font-mono text-small text-accent-tint">/change-practice:setup</code>. In
+        ChatGPT Work, a workspace admin publishes the plugin, then you add it from Plugins.
+      </Text>
+    </Container>
+  </InverseSurface>
+
+  <FeatureSplit eyebrow="The trust spine" headline="every output is a draft, never a send">
+    <ChangeRecord slot="media" variant="sources" class="h-[340px] w-full" />
+    <Text>
+      Comms are saved to the change record. Sending, posting, and calendar invites stay with a
+      person. People data is recorded as groups and roles, not named individuals, unless you ask.
+    </Text>
+  </FeatureSplit>
+
+  <section class="bg-card py-24">
+    <Container>
+      <Subheading>five personas, one change record</Subheading>
+      <Text className="mt-3 mb-12 max-w-[64ch]">
+        Each persona owns a set of skills and writes to the same record in{' '}
+        <code class="font-mono text-small text-primary">docs/change/</code>. Run setup first so
+        later skills follow how your team works.
+      </Text>
+      <BorderGrid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          changePractice.personas.map((persona) => (
+            <Card className="flex flex-col gap-2.5 rounded-none bg-background p-6">
+              <p class="font-mono text-body text-primary">{persona.name}</p>
+              <p class="flex-1 text-small leading-[1.55] text-muted-foreground">{persona.bestFor}</p>
+              <p class="font-mono text-[13px] text-faint-foreground">{persona.command}</p>
+            </Card>
+          ))
+        }
+      </BorderGrid>
+      <p class="mt-8 max-w-[64ch] text-small leading-body text-faint-foreground">
+        It covers people change — helping groups adopt a new system, process, structure, or policy.
+        It does not cover IT change control.
+      </p>
+    </Container>
+  </section>
+
+  <FeatureSplit
+    eyebrow="Worked example"
+    headline="a change definition from the notes you already have"
+    mediaPosition="end"
+  >
+    <ChangeRecord slot="media" variant="generated" class="h-[340px] w-full" />
+    <Text>
+      You have a rostering change and some project notes. Run{' '}
+      <code class="font-mono text-small text-primary">/change-practice:understand-change</code>. You
+      get a change definition that later skills read, with unknowns marked for you to confirm.
+    </Text>
+  </FeatureSplit>
+
+  <CallToAction tone="inverse" headline="install change-practice and see your first draft">
+    <Text>
+      Start with <code class="font-mono text-small text-accent-tint">/change-practice:setup</code>,
+      then ask what to do next on this change.
+    </Text>
+    <a class={buttonVariants({ variant: 'primary' })} href={changePractice.github}>
+      Get started on GitHub
+    </a>
+  </CallToAction>
+
+  <section class="border-t border-border py-24">
+    <Container>
+      <FaqList items={changePractice.faqs.map((faq) => ({ question: faq.q, answer: faq.a }))} />
+    </Container>
+  </section>
+
+  <section class="border-t border-border py-8">
+    <Container>
+      <TextLink variant="body" href="/agent-resources">← All agent resources</TextLink>
+    </Container>
+  </section>
+</Layout>

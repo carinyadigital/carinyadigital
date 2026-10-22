@@ -9,6 +9,7 @@ export default defineConfig({
   redirects: {
     '/resources': '/agent-resources',
     '/resources/financial-planners': '/financial-planners',
+    '/resources/change-practice': '/change-practice',
     '/resources/waratah': '/waratah',
     '/resources/agent-plugins': '/agent-plugins',
   },
