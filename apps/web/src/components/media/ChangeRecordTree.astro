@@ -1,0 +1,43 @@
+---
+import ProductFrame from './ProductFrame.astro';
+import { changePractice } from '@/content/site';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+const rows = changePractice.record.tree;
+---
+
+<ProductFrame
+  filename="docs/change/"
+  label="The change record folder: scope, strategy, registers, comms drafts, readiness, adoption, handover, lessons, and weekly status"
+  status="Plain files"
+  class={className}
+>
+  <ul class="space-y-1.5 font-mono text-[13px] leading-snug">
+    {
+      rows.map((row) => (
+        <li
+          class:list={[
+            'flex items-center gap-2 rounded-sm border border-border bg-background px-3 py-1.5',
+            row.depth === 1 && 'ml-4',
+            row.depth === 2 && 'ml-8',
+          ]}
+        >
+          <span
+            class:list={[
+              'inline-block size-1.5 shrink-0 rounded-full',
+              row.kind === 'dir' ? 'bg-primary' : 'bg-secondary',
+            ]}
+            aria-hidden="true"
+          />
+          <span class={row.kind === 'dir' ? 'text-foreground' : 'text-muted-foreground'}>
+            {row.name}
+          </span>
+        </li>
+      ))
+    }
+  </ul>
+</ProductFrame>

@@ -337,11 +337,103 @@ export const changePractice = {
   github: 'https://github.com/carinyadigital/change-practice',
   install: `/plugin marketplace add carinyadigital/change-practice
 /plugin install change-practice@change-practice`,
-  stats: [
-    { value: '5', label: 'persona agents over one shared change record' },
-    { value: '27', label: 'skills across Prepare, Manage, and Sustain' },
-    { value: '0', label: 'messages sent to employees without a human' },
+  setupCommand: '/change-practice:setup',
+  hero: {
+    eyebrow: 'Plugin for Claude Cowork and ChatGPT Work',
+    headline: 'run your change practice from one shared record',
+    subheadline:
+      'Change Practice drafts the stakeholder, impact, communications, training, and readiness work for a people change, and saves every piece to one change record your team can read. You review each draft. Nothing is sent to staff.',
+  },
+  installSteps: [
+    { label: 'Paste into Claude Code or Claude Cowork' },
+    { label: 'Run setup once', command: '/change-practice:setup' },
+    { label: 'Ask for your first draft', command: '/change-practice:understand-change' },
   ],
+  worksWith: ['Claude Cowork', 'ChatGPT Work', 'Microsoft 365', 'Teams'],
+  stats: [
+    { value: '27', label: 'skills across Prepare, Manage, and Sustain' },
+    { value: '5', label: 'specialist personas sharing one skill library' },
+    { value: '1', label: 'change record that every skill reads and writes' },
+    { value: '0', label: 'messages sent to employees without a person' },
+  ],
+  problem: {
+    headline: 'the work of change is scattered. the record should not be.',
+    description:
+      'A change manager carries the stakeholder register, the impact assessment, the comms plan, the training plan, and the readiness checklist in a dozen files and three inboxes. They drift apart, and the history leaves when the project closes.',
+    items: [
+      {
+        headline: 'Registers stop agreeing',
+        description:
+          'The stakeholder, impact, and risk registers are written weeks apart and never reconciled, so the same group is high-impact in one and missing from another.',
+      },
+      {
+        headline: 'Every message starts blank',
+        description:
+          'The town hall slide, the all-staff email, and the manager talking points each tell the change story a little differently.',
+      },
+      {
+        headline: 'Readiness is judged by feel',
+        description:
+          'Go-live gets a go or no-go in a meeting, with the evidence spread across spreadsheets and people’s heads.',
+      },
+      {
+        headline: 'Handover loses the history',
+        description:
+          'The decisions, the lessons, and the open issues leave with the change manager when the project ends.',
+      },
+    ],
+  },
+  howItWorks: {
+    headline: 'three steps from project notes to a working change record',
+    steps: [
+      {
+        title: 'Install and run setup',
+        command: '/change-practice:setup',
+        description:
+          'Setup asks how your team works: the method you follow, how you report, and what your templates look like. It saves that as a practice profile, and every later skill reads it so the drafts sound like your team.',
+      },
+      {
+        title: 'Describe the change',
+        command: '/change-practice:understand-change',
+        description:
+          'Hand over the project notes you already have. You get a change definition in scope.md: what is changing, for whom, and why now. Where the notes are silent, the draft says so and asks you to confirm.',
+      },
+      {
+        title: 'Build on the record',
+        command: '/change-practice:skills-index',
+        description:
+          'Each skill reads what came before and writes the next piece, so the comms plan knows the stakeholders and the readiness review knows the training plan. Unsure what to run next? Ask, and the plugin reads the record and recommends it.',
+      },
+    ],
+  },
+  trust: {
+    eyebrow: 'The trust spine',
+    headline: 'you decide. change practice drafts.',
+    description:
+      'Every output is a draft for a person to review, and the plugin is built so that nothing reaches your staff, your sponsors, or your leaders without one.',
+    items: [
+      {
+        title: 'Drafts, never sends',
+        description:
+          'Communications are saved to the change record. Sending, posting, and calendar invites stay with a person. In Claude Cowork, a guard asks before any connected tool sends anything.',
+      },
+      {
+        title: 'Groups and roles, not names',
+        description:
+          'People are recorded as groups and roles unless you ask otherwise. A guard asks before a personal email or phone number is written, and sentiment is only reported for groups above a minimum size.',
+      },
+      {
+        title: 'Unknowns are marked, not invented',
+        description:
+          'Where the source material is silent, the draft says so in plain sight. No names, numbers, or quotes are made up to fill a gap.',
+      },
+      {
+        title: 'Gates give a verdict, people decide',
+        description:
+          'Five review skills write only a verdict and name the skill that fixes each finding. Sponsor health, readiness, go or no-go, and adoption stay decisions for named people.',
+      },
+    ],
+  },
   personas: [
     {
       name: 'change-lead',
@@ -365,8 +457,216 @@ export const changePractice = {
     },
     {
       name: 'readiness-adoption-analyst',
-      bestFor: 'Measurement, business readiness, go/no-go, and adoption',
+      bestFor: 'Measurement, business readiness, go or no-go, and adoption',
       command: '/change-practice:measurement-plan',
+    },
+  ],
+  phases: [
+    {
+      name: 'Prepare',
+      summary: 'Understand the change and plan the approach.',
+      skills: [
+        { command: 'understand-change', writes: 'scope.md', description: 'Change definition' },
+        {
+          command: 'stakeholder-analysis',
+          writes: 'stakeholder-register.md',
+          description: 'Stakeholder register and grid',
+        },
+        {
+          command: 'change-impact-assessment',
+          writes: 'impact-register.md',
+          description: 'Impact by group, process, and system',
+        },
+        {
+          command: 'change-risk-assessment',
+          writes: 'risk-register.md',
+          description: 'People-change risks and mitigations',
+        },
+        {
+          command: 'sponsor-assessment',
+          writes: 'pct-assessment.md',
+          description: 'Sponsor and project health verdict',
+          gate: true,
+        },
+        {
+          command: 'change-strategy',
+          writes: 'strategy.md',
+          description: 'Strategy, case for change, force field',
+        },
+        {
+          command: 'measurement-plan',
+          writes: 'measurement-plan.md',
+          description: 'What adoption looks like and how it is measured',
+        },
+      ],
+    },
+    {
+      name: 'Manage',
+      summary: 'Engage, communicate, train, and get ready for go-live.',
+      skills: [
+        { command: 'sponsor-engagement', writes: 'sponsor-plan.md', description: 'Sponsor plan' },
+        {
+          command: 'stakeholder-engagement',
+          writes: 'engagement-plan.md',
+          description: 'Stakeholder engagement plan',
+        },
+        {
+          command: 'change-network',
+          writes: 'change-network.md',
+          description: 'Champion network, feedback log, champion pack',
+        },
+        {
+          command: 'communications-plan',
+          writes: 'comms-plan.md',
+          description: 'Change story and comms plan',
+        },
+        { command: 'comms-draft', writes: 'comms/', description: 'Message drafts, saved and never sent' },
+        {
+          command: 'training-needs-analysis',
+          writes: 'tna.md',
+          description: 'Training needs, plan, schedule, quick reference guides',
+        },
+        {
+          command: 'business-readiness',
+          writes: 'readiness-checklist.md',
+          description: 'Readiness tracked against the checklist',
+          gate: true,
+        },
+        {
+          command: 'readiness-review',
+          writes: 'go-no-go.md',
+          description: 'Go or no-go evidence and verdict',
+          gate: true,
+        },
+        {
+          command: 'resistance-management',
+          writes: 'resistance-log.md',
+          description: 'Resistance log and transition plan',
+        },
+        {
+          command: 'golive-transition',
+          writes: 'golive-plan.md',
+          description: 'Go-live plan and daily hypercare check-ins',
+        },
+        {
+          command: 'portfolio-saturation',
+          writes: 'portfolio-heatmap.md',
+          description: 'Heatmap of change load across groups',
+          gate: true,
+        },
+        { command: 'stakeholder-pulse', writes: 'pulse/', description: 'Pulse check-ins and survey designs' },
+        { command: 'meeting-prep', description: 'Meeting preparation and follow-ups' },
+      ],
+    },
+    {
+      name: 'Sustain',
+      summary: 'Measure adoption, reinforce, and hand over.',
+      skills: [
+        {
+          command: 'adoption-measurement',
+          writes: 'adoption-report.md',
+          description: 'Adoption against the measurement plan',
+          gate: true,
+        },
+        { command: 'reinforcement', writes: 'reinforcement-plan.md', description: 'Reinforcement plan' },
+        { command: 'bau-handover', writes: 'handover-pack.md', description: 'Handover pack for business as usual' },
+      ],
+    },
+    {
+      name: 'Throughout',
+      summary: 'Keep the record current from kick-off to close.',
+      skills: [
+        { command: 'setup', writes: 'practice profile', description: 'How your team works. Run this first' },
+        { command: 'skills-index', description: 'Which skill to run next' },
+        { command: 'lessons-learned', writes: 'lessons-learned.md', description: 'Lessons log and retro sheets' },
+        { command: 'weekly-status', writes: 'status/', description: 'RAG status report drafted from the record' },
+      ],
+    },
+  ],
+  routines: {
+    headline: 'it fits the week you already have',
+    description:
+      'Most of a change manager’s week is the same handful of routines. Each one reads the record, drafts the next piece, and leaves the sending and the deciding to you.',
+    items: [
+      {
+        when: 'Every day',
+        command: 'stakeholder-pulse',
+        description:
+          'A short check-in on how each group is travelling. When a theme keeps coming up, it points you to resistance-management.',
+      },
+      {
+        when: 'Before a meeting',
+        command: 'meeting-prep',
+        description:
+          'Who is in the room, what the record says about them, and what you need from them. Run it again afterwards for the follow-ups.',
+      },
+      {
+        when: 'When a message is due',
+        command: 'comms-draft',
+        description:
+          'A draft that follows the change story and the comms plan, saved to the record. You approve it and send it.',
+      },
+      {
+        when: 'On a cadence',
+        command: 'business-readiness',
+        description:
+          'Readiness tracked against the checklist, then readiness-review at the gate for the go or no-go.',
+      },
+      {
+        when: 'Every week',
+        command: 'weekly-status',
+        description: 'The RAG status report, drafted from what changed in the record this week.',
+      },
+      {
+        when: 'During hypercare',
+        command: 'golive-transition',
+        description: 'The daily hypercare check-in, drafted from the issue log.',
+      },
+    ],
+  },
+  record: {
+    eyebrow: 'The change record',
+    headline: 'one folder your whole team can read',
+    description:
+      'Every skill writes to docs/change/ in plain Markdown and CSV, so the record lives with the project, opens in any editor, and leaves nothing behind when the plugin is gone. Later conversations build on earlier ones because the record is the memory.',
+    tree: [
+      { name: 'docs/change/', kind: 'dir', depth: 0 },
+      { name: 'scope.md', kind: 'file', depth: 1 },
+      { name: 'strategy.md', kind: 'file', depth: 1 },
+      { name: 'stakeholder-register.md', kind: 'file', depth: 1 },
+      { name: 'impact-register.md', kind: 'file', depth: 1 },
+      { name: 'risk-register.md', kind: 'file', depth: 1 },
+      { name: 'comms-plan.md', kind: 'file', depth: 1 },
+      { name: 'comms/', kind: 'dir', depth: 1 },
+      { name: '2026-03-02-roster-update.md', kind: 'file', depth: 2 },
+      { name: 'tna.md', kind: 'file', depth: 1 },
+      { name: 'readiness-checklist.md', kind: 'file', depth: 1 },
+      { name: 'go-no-go.md', kind: 'file', depth: 1 },
+      { name: 'adoption-report.md', kind: 'file', depth: 1 },
+      { name: 'handover-pack.md', kind: 'file', depth: 1 },
+      { name: 'lessons-learned.md', kind: 'file', depth: 1 },
+      { name: 'status/', kind: 'dir', depth: 1 },
+      { name: '2026-W10.md', kind: 'file', depth: 2 },
+    ],
+  },
+  platforms: [
+    {
+      name: 'Claude Cowork',
+      steps: [
+        'Open the Cowork tab, then Customize, Plugins, and Discover, and install Change Practice. Or paste the snippet into Claude Code.',
+        'Connect Microsoft 365 and Teams on the Connectors tab if you want, or skip it and paste material in.',
+        'Run setup, then start a task and type / to choose a skill, or just ask in plain language.',
+      ],
+      note: 'Guards run here: the plugin asks before any send, personal-data write, or profile change.',
+    },
+    {
+      name: 'ChatGPT Work',
+      steps: [
+        'A workspace admin publishes Change Practice from ChatGPT Plugins.',
+        'Switch to Work, open Plugins, find it under your workspace or Personal, and add it.',
+        'Accept the setup conversation on first use, or ask to set up your change practice.',
+      ],
+      note: 'Guards do not run on the web, so read each draft carefully before sharing it.',
     },
   ],
   faqs: [
@@ -383,8 +683,20 @@ export const changePractice = {
       a: 'No. Comms are saved to the change record as drafts. Sending, posting, and calendar invites stay with a person. People data is recorded as groups and roles, not named individuals, unless you ask.',
     },
     {
+      q: 'Which change method does it follow?',
+      a: 'Yours. Setup records how your team works and later skills follow it. Where the skills draw on Prosci, Kotter, Bridges, or ACMP, they describe those ideas in their own words with attribution.',
+    },
+    {
+      q: 'Do I need Microsoft 365 or Teams connected?',
+      a: 'No. Both are optional. Every skill works with material you paste or upload.',
+    },
+    {
       q: 'Does this work in ChatGPT?',
-      a: 'Yes. A workspace admin publishes Change Practice from ChatGPT Plugins, then you add it in ChatGPT Work. Claude Cowork installs from the GitHub marketplace.',
+      a: 'Yes. A workspace admin publishes Change Practice from ChatGPT Plugins, then you add it in ChatGPT Work. Claude Cowork installs from Discover or from the GitHub marketplace.',
+    },
+    {
+      q: 'What does it cost?',
+      a: 'Nothing. Change Practice is open source under the MIT licence. Install it yourself and keep the change record on your own systems.',
     },
   ],
 } as const;

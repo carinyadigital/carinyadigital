@@ -1,0 +1,57 @@
+---
+import { InstallCommand, Tag } from '@carinya-digital/ui';
+
+interface Step {
+  label: string;
+  command?: string;
+}
+
+interface Props {
+  snippet: string;
+  steps: readonly Step[];
+  label: string;
+  class?: string;
+}
+
+const { snippet, steps, label, class: className } = Astro.props;
+---
+
+<figure
+  aria-label={label}
+  class:list={[
+    'flex flex-col overflow-hidden rounded-sm border border-border-strong bg-card',
+    className,
+  ]}
+>
+  <figcaption class="flex items-center justify-between gap-3 border-b border-border px-4 py-2.5">
+    <span class="font-mono text-label uppercase tracking-label text-faint-foreground">
+      Install in three steps
+    </span>
+    <Tag>Free · MIT</Tag>
+  </figcaption>
+  <ol class="flex flex-col divide-y divide-border">
+    {
+      steps.map((step, index) => (
+        <li class="flex gap-4 px-5 py-4">
+          <span
+            class="mt-0.5 shrink-0 font-mono text-label text-secondary tabular-nums"
+            aria-hidden="true"
+          >
+            {String(index + 1).padStart(2, '0')}
+          </span>
+          <div class="flex min-w-0 flex-1 flex-col gap-3">
+            <p class="text-small leading-snug text-foreground">{step.label}</p>
+            {index === 0 ? (
+              <InstallCommand client:load snippet={snippet} className="p-4" />
+            ) : null}
+            {step.command ? (
+              <code class="w-fit rounded-sm border border-border bg-background px-3 py-1.5 font-mono text-[13px] text-primary">
+                {step.command}
+              </code>
+            ) : null}
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</figure>

@@ -7,112 +7,281 @@ import {
   Container,
   Eyebrow,
   FaqList,
+  FeatureGrid,
   InstallCommand,
-  InverseSurface,
   StatBand,
   Subheading,
   Tag,
   Text,
   TextLink,
 } from '@carinya-digital/ui';
-import CallToAction from '@/components/CallToAction.astro';
 import FeatureSplit from '@/components/FeatureSplit.astro';
 import Hero from '@/components/Hero.astro';
+import InstallPanel from '@/components/InstallPanel.astro';
 import ChangeRecord from '@/components/media/ChangeRecord.astro';
+import ChangeRecordTree from '@/components/media/ChangeRecordTree.astro';
 import Layout from '@/layouts/Layout.astro';
 import { changePractice } from '@/content/site';
+
+const { hero, problem, howItWorks, trust, routines, record } = changePractice;
+const skillCount = changePractice.phases.reduce((total, phase) => total + phase.skills.length, 0);
 ---
 
 <Layout
   title="Change Practice"
-  description="A practice plugin for change managers — stakeholder analysis, impact, comms, readiness, and adoption — in Claude Cowork or ChatGPT Work. Every output is a draft for you to review."
+  description="Change Practice is a plugin for change managers in Claude Cowork and ChatGPT Work. It drafts stakeholder, impact, communications, training, and readiness work into one shared change record. Every output is a draft for you to review. Nothing is sent to staff."
 >
   <Hero
-    headline="people change, as a practice plugin"
-    subheadline="Stakeholder analysis, impact, comms, readiness, and adoption for change managers — in Claude Cowork or ChatGPT Work. One shared change record. Every output is a draft for you to review."
+    headline={hero.headline}
+    subheadline={hero.subheadline}
+    headlineClassName="text-h1"
   >
-    <Tag slot="eyebrow">Plugin marketplace</Tag>
+    <Tag slot="eyebrow">{hero.eyebrow}</Tag>
     <div class="flex flex-wrap items-center gap-3.5">
-      <Chip>Claude Cowork</Chip>
-      <Chip>ChatGPT Work</Chip>
+      <a class={buttonVariants({ variant: 'primary' })} href={changePractice.github}>
+        Get started on GitHub
+      </a>
+      <a class={buttonVariants({ variant: 'secondary' })} href="#how-it-works">See how it works</a>
     </div>
-    <ChangeRecord slot="media" variant="hero" class="h-[380px] w-full" />
+    <div class="mt-2 flex flex-wrap items-center gap-x-3.5 gap-y-2.5">
+      <span class="font-mono text-label uppercase tracking-label text-faint-foreground">
+        Works with
+      </span>
+      {changePractice.worksWith.map((name) => <Chip>{name}</Chip>)}
+    </div>
+    <InstallPanel
+      slot="media"
+      snippet={changePractice.install}
+      steps={changePractice.installSteps}
+      label="Install Change Practice: paste the snippet, run setup, then ask for your first draft"
+      class="w-full"
+    />
   </Hero>
 
   <StatBand items={[...changePractice.stats]} />
 
-  <InverseSurface>
-    <Container className="flex flex-col gap-5">
-      <Eyebrow tone="sage">Paste this into your agent</Eyebrow>
-      <InstallCommand client:load snippet={changePractice.install} />
-      <Text>
-        Run in Claude Cowork, then restart and run{' '}
-        <code class="font-mono text-small text-accent-tint">/change-practice:setup</code>. In
-        ChatGPT Work, a workspace admin publishes the plugin, then you add it from Plugins.
-      </Text>
+  <section class="py-24">
+    <Container>
+      <div class="mb-12 grid gap-6 lg:grid-cols-2 lg:gap-16">
+        <Subheading>{problem.headline}</Subheading>
+        <Text className="max-w-xl">{problem.description}</Text>
+      </div>
+      <FeatureGrid items={problem.items} className="lg:grid-cols-4" />
     </Container>
-  </InverseSurface>
+  </section>
 
-  <FeatureSplit eyebrow="The trust spine" headline="every output is a draft, never a send">
-    <ChangeRecord slot="media" variant="sources" class="h-[340px] w-full" />
-    <Text>
-      Comms are saved to the change record. Sending, posting, and calendar invites stay with a
-      person. People data is recorded as groups and roles, not named individuals, unless you ask.
-    </Text>
-  </FeatureSplit>
+  <section id="how-it-works" class="scroll-mt-16 bg-card py-24">
+    <Container className="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
+      <div>
+        <Eyebrow>How it works</Eyebrow>
+        <Subheading className="mt-4">{howItWorks.headline}</Subheading>
+        <ol class="mt-10 flex flex-col divide-y divide-border border-y border-border">
+          {
+            howItWorks.steps.map((step, index) => (
+              <li class="grid gap-3 py-6 sm:grid-cols-[3rem_1fr]">
+                <span
+                  class="font-heading text-[28px] leading-none text-secondary"
+                  aria-hidden="true"
+                >
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                <div class="flex flex-col gap-2.5">
+                  <h3 class="font-heading text-[22px] leading-snug text-foreground">{step.title}</h3>
+                  <p class="text-small leading-[1.55] text-muted-foreground">{step.description}</p>
+                  <code class="w-fit font-mono text-[13px] text-primary">{step.command}</code>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+      <ChangeRecord variant="generated" class="h-[400px] w-full lg:sticky lg:top-24" />
+    </Container>
+  </section>
+
+  <section class="dark bg-background py-24 text-foreground">
+    <Container>
+      <div class="mb-12 grid gap-6 lg:grid-cols-2 lg:gap-16">
+        <div>
+          <Eyebrow tone="sage">{trust.eyebrow}</Eyebrow>
+          <Subheading className="mt-4">{trust.headline}</Subheading>
+        </div>
+        <Text className="max-w-xl lg:self-end">{trust.description}</Text>
+      </div>
+      <div class="grid items-stretch gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-16">
+        <ChangeRecord variant="sources" class="h-full min-h-[360px] w-full" />
+        <BorderGrid className="grid-cols-1 sm:grid-cols-2">
+          {
+            trust.items.map((item) => (
+              <div class="flex flex-col gap-2.5 bg-background p-6">
+                <h3 class="font-heading text-[20px] leading-snug text-foreground">{item.title}</h3>
+                <p class="text-small leading-[1.55] text-muted-foreground">{item.description}</p>
+              </div>
+            ))
+          }
+        </BorderGrid>
+      </div>
+    </Container>
+  </section>
+
+  <section class="py-24">
+    <Container>
+      <div class="mb-12 grid gap-6 lg:grid-cols-2 lg:gap-16">
+        <Subheading>{skillCount} skills, from first notes to handover</Subheading>
+        <Text className="max-w-xl">
+          Each skill drafts one piece of the change and saves it to the record. Review skills, marked
+          as gates, write only a verdict and leave the decision with you.
+        </Text>
+      </div>
+      <div class="flex flex-col border-t border-border">
+        {
+          changePractice.phases.map((phase) => (
+            <div class="grid gap-6 border-b border-border py-10 lg:grid-cols-[220px_1fr] lg:gap-16">
+              <div class="flex flex-col gap-2">
+                <p class="font-heading text-[28px] leading-none text-foreground">{phase.name}</p>
+                <p class="text-small leading-snug text-muted-foreground">{phase.summary}</p>
+                <p class="mt-1 font-mono text-label uppercase tracking-label text-faint-foreground">
+                  {phase.skills.length} {phase.skills.length === 1 ? 'skill' : 'skills'}
+                </p>
+              </div>
+              <ul class="grid gap-x-8 gap-y-5 sm:grid-cols-2 xl:grid-cols-3">
+                {phase.skills.map((skill) => (
+                  <li class="flex flex-col gap-1 border-l border-border pl-4">
+                    <div class="flex flex-wrap items-center gap-2">
+                      <code class="font-mono text-[13px] text-primary">{skill.command}</code>
+                      {'gate' in skill && skill.gate ? <Tag>Gate</Tag> : null}
+                    </div>
+                    <p class="text-small leading-snug text-foreground">{skill.description}</p>
+                    {'writes' in skill && skill.writes ? (
+                      <p class="font-mono text-[12px] text-faint-foreground">→ {skill.writes}</p>
+                    ) : null}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </Container>
+  </section>
 
   <section class="bg-card py-24">
     <Container>
-      <Subheading>five personas, one change record</Subheading>
-      <Text className="mt-3 mb-12 max-w-[64ch]">
-        Each persona owns a set of skills and writes to the same record in{' '}
-        <code class="font-mono text-small text-primary">docs/change/</code>. Run setup first so
-        later skills follow how your team works.
-      </Text>
-      <BorderGrid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="mb-12 grid gap-6 lg:grid-cols-2 lg:gap-16">
+        <Subheading>five specialists, one record</Subheading>
+        <Text className="max-w-xl">
+          Ask in plain language and the right specialist picks it up. Each persona owns a set of
+          skills, and all of them read and write the same change record.
+        </Text>
+      </div>
+      <BorderGrid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-5">
         {
           changePractice.personas.map((persona) => (
             <Card className="flex flex-col gap-2.5 rounded-none bg-background p-6">
               <p class="font-mono text-body text-primary">{persona.name}</p>
               <p class="flex-1 text-small leading-[1.55] text-muted-foreground">{persona.bestFor}</p>
-              <p class="font-mono text-[13px] text-faint-foreground">{persona.command}</p>
+              <p class="font-mono text-[12px] text-faint-foreground">
+                <span class="uppercase tracking-label">Start with</span>{' '}
+                <span class="text-muted-foreground">
+                  {persona.command.replace('/change-practice:', '')}
+                </span>
+              </p>
             </Card>
           ))
         }
       </BorderGrid>
       <p class="mt-8 max-w-[64ch] text-small leading-body text-faint-foreground">
-        It covers people change — helping groups adopt a new system, process, structure, or policy.
-        It does not cover IT change control.
+        Change Practice covers people change: helping groups adopt a new system, process, structure,
+        or policy. It does not cover IT change control.
       </p>
     </Container>
   </section>
 
+  <section class="py-24">
+    <Container>
+      <div class="mb-12 grid gap-6 lg:grid-cols-2 lg:gap-16">
+        <Subheading>{routines.headline}</Subheading>
+        <Text className="max-w-xl">{routines.description}</Text>
+      </div>
+      <BorderGrid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          routines.items.map((routine) => (
+            <div class="flex flex-col gap-3 bg-background p-7">
+              <p class="font-mono text-label uppercase tracking-label text-secondary">
+                {routine.when}
+              </p>
+              <code class="font-mono text-body text-foreground">{routine.command}</code>
+              <p class="text-small leading-[1.55] text-muted-foreground">{routine.description}</p>
+            </div>
+          ))
+        }
+      </BorderGrid>
+    </Container>
+  </section>
+
   <FeatureSplit
-    eyebrow="Worked example"
-    headline="a change definition from the notes you already have"
+    eyebrow={record.eyebrow}
+    headline={record.headline}
     mediaPosition="end"
+    tone="card"
   >
-    <ChangeRecord slot="media" variant="generated" class="h-[340px] w-full" />
-    <Text>
-      You have a rostering change and some project notes. Run{' '}
-      <code class="font-mono text-small text-primary">/change-practice:understand-change</code>. You
-      get a change definition that later skills read, with unknowns marked for you to confirm.
-    </Text>
+    <ChangeRecordTree slot="media" class="h-[600px] w-full" />
+    <Text>{record.description}</Text>
   </FeatureSplit>
 
-  <CallToAction tone="inverse" headline="install change-practice and see your first draft">
-    <Text>
-      Start with <code class="font-mono text-small text-accent-tint">/change-practice:setup</code>,
-      then ask what to do next on this change.
-    </Text>
-    <a class={buttonVariants({ variant: 'primary' })} href={changePractice.github}>
-      Get started on GitHub
-    </a>
-  </CallToAction>
-
-  <section class="border-t border-border py-24">
+  <section id="install" class="dark scroll-mt-16 bg-background py-24 text-foreground">
     <Container>
-      <FaqList items={changePractice.faqs.map((faq) => ({ question: faq.q, answer: faq.a }))} />
+      <div class="mb-12 grid gap-6 lg:grid-cols-2 lg:gap-16">
+        <div>
+          <Eyebrow tone="sage">Get started</Eyebrow>
+          <Subheading className="mt-4">install change practice and see your first draft</Subheading>
+        </div>
+        <Text className="max-w-xl lg:self-end">
+          Open source under the MIT licence. Install it, run setup once, then hand it the notes
+          from the change in front of you.
+        </Text>
+      </div>
+      <InstallCommand client:load snippet={changePractice.install} />
+      <div class="mt-12 grid gap-px bg-border sm:grid-cols-2">
+        {
+          changePractice.platforms.map((platform) => (
+            <div class="flex flex-col gap-5 bg-background p-7">
+              <p class="font-heading text-[22px] leading-snug text-foreground">{platform.name}</p>
+              <ol class="flex flex-col gap-3">
+                {platform.steps.map((step, index) => (
+                  <li class="grid grid-cols-[1.75rem_1fr] gap-2">
+                    <span class="font-mono text-label text-secondary" aria-hidden="true">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+                    <p class="text-small leading-[1.55] text-muted-foreground">{step}</p>
+                  </li>
+                ))}
+              </ol>
+              <p class="mt-auto border-t border-border pt-4 text-[13px] leading-snug text-faint-foreground">
+                {platform.note}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+      <div class="mt-10 flex flex-wrap items-center gap-3.5">
+        <a class={buttonVariants({ variant: 'primary' })} href={changePractice.github}>
+          Get started on GitHub
+        </a>
+        <TextLink variant="body" href="mailto:hello@carinyadigital.com">
+          Or ask us to set it up for your team →
+        </TextLink>
+      </div>
+    </Container>
+  </section>
+
+  <section class="py-24">
+    <Container>
+      <FaqList
+        layout="split"
+        heading="Questions"
+        items={changePractice.faqs.map((faq) => ({ question: faq.q, answer: faq.a }))}
+      />
     </Container>
   </section>
 
