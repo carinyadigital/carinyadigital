@@ -349,7 +349,7 @@ export const changePractice = {
     { label: 'Run setup once', command: '/change-practice:setup' },
     { label: 'Ask for your first draft', command: '/change-practice:understand-change' },
   ],
-  worksWith: ['Claude Cowork', 'ChatGPT Work', 'Microsoft 365', 'Teams'],
+  worksWith: ['Claude Cowork', 'ChatGPT Work'],
   stats: [
     { value: '27', label: 'skills across Prepare, Manage, and Sustain' },
     { value: '5', label: 'specialist personas sharing one skill library' },
