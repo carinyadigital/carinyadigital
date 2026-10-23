@@ -51,6 +51,11 @@ export const footer = [
   },
 ] as const;
 
+export const footerLegal = [
+  { label: 'Terms', href: '/legal/terms' },
+  { label: 'Privacy Policy', href: '/legal/privacy' },
+] as const;
+
 export const home = {
   features: [
     {

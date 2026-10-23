@@ -1,0 +1,31 @@
+---
+import { Container, Eyebrow } from '@carinya-digital/ui';
+import Layout from '@/layouts/Layout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  effective: string;
+}
+
+const { title, description, effective } = Astro.props;
+---
+
+<Layout title={title} description={description}>
+  <article class="py-16 sm:py-24">
+    <Container className="flex max-w-3xl flex-col gap-8">
+      <header class="flex flex-col gap-4">
+        <Eyebrow>Legal</Eyebrow>
+        <h1 class="font-heading text-h1 font-normal tracking-tight text-balance text-foreground">
+          {title}
+        </h1>
+        <p class="font-mono text-label uppercase tracking-label text-faint-foreground">
+          Effective {effective}
+        </p>
+      </header>
+      <div class="legal">
+        <slot />
+      </div>
+    </Container>
+  </article>
+</Layout>
